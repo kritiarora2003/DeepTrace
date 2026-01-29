@@ -43,6 +43,10 @@ build/
 # Temporary files
 tmp/
 temp/
+
+# Generated data files
+data/request_logs.jsonl
+data/ip_blacklist.json
 *.tmp
 
 # Optional npm cache directory

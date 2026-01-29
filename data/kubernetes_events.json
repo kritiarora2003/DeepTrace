@@ -91,5 +91,57 @@
       "cpu_cores": 0.83
     },
     "restart_count": 15
+  },
+  {
+    "timestamp": "2026-01-29T11:52:02.761Z",
+    "namespace": "production",
+    "pod_name": "search-api-7d9f8b6c5d-x7k2m",
+    "event_type": "pod_restart",
+    "reason": "OOMKilled",
+    "message": "Container killed due to memory pressure",
+    "resource_usage": {
+      "memory_mb": 450,
+      "cpu_cores": 0.95
+    },
+    "restart_count": 9
+  },
+  {
+    "timestamp": "2026-01-29T11:52:06.511Z",
+    "namespace": "production",
+    "pod_name": "search-api-7d9f8b6c5d-m3h8r",
+    "event_type": "pod_restart",
+    "reason": "OOMKilled",
+    "message": "Container killed due to memory pressure",
+    "resource_usage": {
+      "memory_mb": 461,
+      "cpu_cores": 0.8
+    },
+    "restart_count": 12
+  },
+  {
+    "timestamp": "2026-01-29T11:52:10.261Z",
+    "namespace": "production",
+    "pod_name": "search-api-7d9f8b6c5d-x7k2m",
+    "event_type": "resource_warning",
+    "reason": "HighMemoryUsage",
+    "message": "Pod memory usage exceeded 85% threshold",
+    "resource_usage": {
+      "memory_mb": 479,
+      "cpu_cores": 0.87
+    },
+    "restart_count": 15
+  },
+  {
+    "timestamp": "2026-01-29T11:52:14.011Z",
+    "namespace": "production",
+    "pod_name": "search-api-7d9f8b6c5d-p9n4q",
+    "event_type": "pod_restart",
+    "reason": "OOMKilled",
+    "message": "Container killed due to memory pressure",
+    "resource_usage": {
+      "memory_mb": 455,
+      "cpu_cores": 0.93
+    },
+    "restart_count": 18
   }
 ]

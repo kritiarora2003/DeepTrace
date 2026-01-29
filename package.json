@@ -15,6 +15,9 @@
     "monitor": "node monitor.js",
     "api": "node search_api.js",
     "attack": "node attacker.js",
+    "blacklist": "node view_blacklist.js",
+    "blacklist:clear": "node view_blacklist.js clear",
+    "blacklist:export": "node view_blacklist.js export",
     "dev": "node mcp_server.js",
     "visualize": "node visualize_attack.js"
   },

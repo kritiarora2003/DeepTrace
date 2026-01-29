@@ -3,10 +3,13 @@
 
 const dataSources = require('./services/data_sources');
 const liveDataSource = require('./services/live_data_source');
+const fs = require('fs');
+const path = require('path');
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const MCP_URL = "http://localhost:3000";
+const BLACKLIST_FILE = path.join(__dirname, 'data', 'ip_blacklist.json');
 
 // Configuration
 const CONFIG = {
@@ -234,6 +237,59 @@ function batchLogs(logs) {
 }
 
 /**
+ * Update IP blacklist with attacker IPs
+ */
+function updateBlacklist(anomalousLogs) {
+  // Count IPs from anomalous logs
+  const ipCounts = {};
+  anomalousLogs.forEach(log => {
+    const ip = log.source_ip;
+    ipCounts[ip] = (ipCounts[ip] || 0) + 1;
+  });
+
+  // Load existing blacklist
+  let blacklist = {};
+  if (fs.existsSync(BLACKLIST_FILE)) {
+    try {
+      blacklist = JSON.parse(fs.readFileSync(BLACKLIST_FILE, 'utf8'));
+    } catch (e) {
+      blacklist = {};
+    }
+  }
+
+  // Update blacklist with new IPs
+  let newIPs = 0;
+  let updatedIPs = 0;
+  
+  Object.entries(ipCounts).forEach(([ip, count]) => {
+    if (!blacklist[ip]) {
+      blacklist[ip] = {
+        first_seen: new Date().toISOString(),
+        last_seen: new Date().toISOString(),
+        total_anomalies: count,
+        incidents: 1
+      };
+      newIPs++;
+    } else {
+      blacklist[ip].last_seen = new Date().toISOString();
+      blacklist[ip].total_anomalies += count;
+      blacklist[ip].incidents += 1;
+      updatedIPs++;
+    }
+  });
+
+  // Save updated blacklist
+  fs.writeFileSync(BLACKLIST_FILE, JSON.stringify(blacklist, null, 2));
+
+  return {
+    newIPs,
+    updatedIPs,
+    totalBlacklisted: Object.keys(blacklist).length,
+    currentIncidentIPs: Object.keys(ipCounts).length
+  };
+}
+
+/**
  * Trigger investigation agent with filtered data
  */
 async function triggerInvestigation(metricAnomalies, logAnomalies, window) {
@@ -245,6 +301,17 @@ async function triggerInvestigation(metricAnomalies, logAnomalies, window) {
   console.log(`   • Large Payloads: ${logAnomalies.large_payloads.length}`);
   console.log(`   • Error Logs: ${logAnomalies.error_count}`);
   console.log(`   • Time Window: ${window.start} to ${window.end}`);
+  
+  // Get anomalous logs for blacklist
+  const anomalousLogs = filterAnomalousLogs(window);
+  
+  // Update IP blacklist
+  console.log(`\n🚫 Updating IP Blacklist...`);
+  const blacklistUpdate = updateBlacklist(anomalousLogs);
+  console.log(`   • New IPs blacklisted: ${blacklistUpdate.newIPs}`);
+  console.log(`   • Existing IPs updated: ${blacklistUpdate.updatedIPs}`);
+  console.log(`   • Total blacklisted IPs: ${blacklistUpdate.totalBlacklisted}`);
+  console.log(`   • IPs in this incident: ${blacklistUpdate.currentIncidentIPs}`);
   
   try {
     // Step 1: Fetch timeline (only for anomaly window)

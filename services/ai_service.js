@@ -39,16 +39,39 @@ async function callLLM(prompt, temperature = 0.1) {
 /**
  * Analyze logs for attack patterns
  */
-async function analyzeLogsForPatterns(logs, errorPatterns) {
+async function analyzeLogsForPatterns(logs, errorPatterns, options = {}) {
+  // Support filtering and batching options
+  const {
+    filterAnomalous = false,
+    maxLogs = 500,
+    batchSize = 100
+  } = options;
+
+  // Filter to only anomalous logs if requested
+  let logsToAnalyze = logs;
+  if (filterAnomalous) {
+    logsToAnalyze = logs.filter(l =>
+      l.level === 'error' ||
+      l.request_size > 5000000 ||
+      l.response_time_ms > 5000
+    );
+  }
+
+  // Limit total logs
+  logsToAnalyze = logsToAnalyze.slice(0, maxLogs);
+
   const logSummary = {
-    total_logs: logs.length,
-    error_count: logs.filter(l => l.level === 'error').length,
-    unique_ips: [...new Set(logs.map(l => l.source_ip))].length,
-    large_requests: logs.filter(l => l.request_size > 5000000).length,
-    avg_response_time: logs.reduce((sum, l) => sum + l.response_time_ms, 0) / logs.length
+    total_logs: logsToAnalyze.length,
+    original_log_count: logs.length,
+    filtered: filterAnomalous,
+    error_count: logsToAnalyze.filter(l => l.level === 'error').length,
+    unique_ips: [...new Set(logsToAnalyze.map(l => l.source_ip))].length,
+    large_requests: logsToAnalyze.filter(l => l.request_size > 5000000).length,
+    avg_response_time: logsToAnalyze.reduce((sum, l) => sum + l.response_time_ms, 0) / logsToAnalyze.length
   };
 
-  const errorSummary = errorPatterns.slice(0, 5).map(p => 
+  // Only use top error patterns to reduce AI workload
+  const errorSummary = errorPatterns.slice(0, 5).map(p =>
     `- ${p.pattern}: ${p.frequency} occurrences from IPs ${p.sample_ips.join(', ')}`
   ).join('\n');
 
@@ -65,9 +88,11 @@ TOP ERROR PATTERNS:
 ${errorSummary}
 
 SAMPLE LARGE REQUESTS:
-${logs.filter(l => l.request_size > 5000000).slice(0, 3).map(l => 
-  `- ${l.timestamp}: ${(l.request_size / 1048576).toFixed(2)}MB from ${l.source_ip}, response: ${l.response_time_ms}ms, status: ${l.status_code}`
+${logsToAnalyze.filter(l => l.request_size > 5000000).slice(0, 3).map(l =>
+`- ${l.timestamp}: ${(l.request_size / 1048576).toFixed(2)}MB from ${l.source_ip}, response: ${l.response_time_ms}ms, status: ${l.status_code}`
 ).join('\n')}
+
+NOTE: Analysis performed on ${logsToAnalyze.length} ${filterAnomalous ? 'anomalous' : 'total'} logs (from ${logs.length} total logs in time window).
 
 Based on this data, identify:
 1. The attack pattern and type

@@ -9,8 +9,12 @@
   "scripts": {
     "start": "node mcp_server.js",
     "test": "node test_tools.js",
+    "test-monitoring": "node test_monitoring.js",
     "generate-data": "node data/generate_attack_data.js",
     "demo": "node agent.js",
+    "monitor": "node monitor.js",
+    "api": "node search_api.js",
+    "attack": "node attacker.js",
     "dev": "node mcp_server.js",
     "visualize": "node visualize_attack.js"
   },

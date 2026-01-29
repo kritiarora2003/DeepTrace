@@ -1,8 +1,8 @@
-import express from "express"
-import fs from "fs"
-import path from "path"
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
 
-const app = express()
+const app = express();
 
 // ❌ Intentionally unsafe: large JSON bodies allowed
 app.use(express.json({ limit: "20mb" }))
@@ -52,4 +52,4 @@ app.post("/api/search", (req, res) => {
 
 app.listen(4000, () => {
   console.log("🚨 Vulnerable search API running on http://localhost:4000")
-})
+});

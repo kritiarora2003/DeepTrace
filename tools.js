@@ -92,16 +92,18 @@ const tools = {
    * AI-powered log analysis to identify attack patterns and anomalies
    */
   analyze_logs: {
-    description: "Perform AI-powered analysis of application logs to identify attack patterns, anomalies, and suspicious behavior. Uses LLM to detect attack signatures.",
+    description: "Perform AI-powered analysis of application logs to identify attack patterns, anomalies, and suspicious behavior. Uses LLM to detect attack signatures. Supports filtering to only anomalous logs and batch processing.",
     schema: z.object({
       time_range: z.object({
         start: z.string().describe("Start time in ISO 8601 format"),
         end: z.string().describe("End time in ISO 8601 format")
       }).describe("Time range to analyze"),
       log_level: z.enum(["error", "warn", "info", "all"]).optional().describe("Filter by log level (default: all)"),
-      limit: z.number().optional().describe("Maximum number of logs to analyze (default: 500)")
+      limit: z.number().optional().describe("Maximum number of logs to analyze (default: 500)"),
+      filter_anomalous: z.boolean().optional().describe("Only analyze anomalous logs (errors, large payloads, slow responses) (default: false)"),
+      batch_size: z.number().optional().describe("Batch size for processing large log volumes (default: 100)")
     }),
-    execute: async ({ time_range, log_level, limit = 500 }) => {
+    execute: async ({ time_range, log_level, limit = 500, filter_anomalous = false, batch_size = 100 }) => {
       try {
         // Query logs
         const logs = dataSources.applicationLogs.query({
@@ -124,12 +126,23 @@ const tools = {
           threshold: 5000000 // 5MB
         });
 
-        // Use AI to analyze patterns
-        const aiAnalysis = await aiService.analyzeLogsForPatterns(logs, errorPatterns);
+        // Use AI to analyze patterns with filtering and batching options
+        const aiAnalysis = await aiService.analyzeLogsForPatterns(logs, errorPatterns, {
+          filterAnomalous: filter_anomalous,
+          maxLogs: limit,
+          batchSize: batch_size
+        });
 
         // Calculate statistics
+        // Calculate statistics on filtered logs if applicable
+        const logsForStats = filter_anomalous
+          ? logs.filter(l => l.level === 'error' || l.request_size > 5000000 || l.response_time_ms > 5000)
+          : logs;
+
         const stats = {
           total_logs: logs.length,
+          analyzed_logs: logsForStats.length,
+          filtered: filter_anomalous,
           error_count: logs.filter(l => l.level === 'error').length,
           unique_ips: [...new Set(logs.map(l => l.source_ip))].length,
           unique_endpoints: [...new Set(logs.map(l => l.endpoint))].length,
@@ -157,7 +170,10 @@ const tools = {
           }, {}),
           metadata: {
             time_range: time_range,
-            analyzed_logs: logs.length
+            total_logs_in_window: logs.length,
+            logs_sent_to_ai: logsForStats.length,
+            filtering_enabled: filter_anomalous,
+            batch_size: batch_size
           }
         };
       } catch (error) {

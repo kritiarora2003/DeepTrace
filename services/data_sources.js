@@ -408,4 +408,3 @@ module.exports = {
   kubernetesEvents: new KubernetesEventsDataSource()
 };
 
-// Made with Bob

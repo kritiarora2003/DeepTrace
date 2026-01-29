@@ -50,3 +50,12 @@ temp/
 
 # Optional eslint cache
 .eslintcache
+
+# dont push data!!
+data/api_gateway_logs.json
+data/application_logs.json
+data/metrics.json
+data/kubernetes_events.json
+
+# explanation also
+explanation.md

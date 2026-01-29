@@ -475,4 +475,3 @@ app.use('/api/search', searchLimiter);`
 
 module.exports = { tools };
 
-// Made with Bob

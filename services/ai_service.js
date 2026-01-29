@@ -272,4 +272,3 @@ module.exports = {
   generateIncidentSummary
 };
 
-// Made with Bob

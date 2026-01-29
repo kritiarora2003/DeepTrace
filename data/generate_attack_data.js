@@ -297,4 +297,3 @@ console.log(`✅ Generated ${apiGatewayLogs.length} API gateway log entries`);
 console.log(`✅ Generated ${kubernetesEvents.length} Kubernetes events`);
 console.log('\nData files created in data/ directory');
 
-// Made with Bob

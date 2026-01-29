@@ -272,4 +272,3 @@ module.exports = {
   findAttackPatterns
 };
 
-// Made with Bob

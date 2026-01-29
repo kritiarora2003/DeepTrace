@@ -1,8 +1,12 @@
+const readline = require('readline');
 const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const OLLAMA_URL = "http://localhost:11434/api/generate";
 const MCP_URL = "http://localhost:3000";
+
+// SIMULATION CURRENT TIME (Anchor for relative time queries)
+const SIMULATION_NOW = "2026-01-29T14:35:00Z";
 
 // ---- SYSTEM PROMPT FOR SECURITY INVESTIGATION ----
 const systemPrompt = `
@@ -21,17 +25,10 @@ INVESTIGATION WORKFLOW:
 4. Finally, suggest remediation actions
 
 You MUST call tools in sequence. After each tool call, wait for results before proceeding.
-When calling a tool, respond ONLY with valid JSON in this format:
-{
-  "tool": "tool_name",
-  "arguments": { ... }
-}
-
-No extra text. No explanations outside the JSON.
 `;
 
 // ---- CALL OLLAMA ----
-async function callLLM(prompt) {
+async function callLLM(prompt, temperature = 0.1) {
   const res = await fetch(OLLAMA_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -39,17 +36,65 @@ async function callLLM(prompt) {
       model: "llama3.2:3b",
       prompt: systemPrompt + "\n\n" + prompt,
       stream: false,
-      temperature: 0.1
+      temperature: temperature
     })
   });
 
   return res.json();
 }
 
+// ---- INFER TIMEFRAME FROM NL PROMPT ----
+async function inferTimeframe(userPrompt) {
+  const prompt = `
+  Current Simulation Time: ${SIMULATION_NOW}
+  User Query: "${userPrompt}"
+
+  Task: Determine the start and end time for a security investigation based on the user's query.
+  Rules:
+  1. Default logic: If the user implies "now" or "just happened", use the Current Simulation Time as the end time.
+  2. Lookback: Unless specified otherwise, default to looking back 6 hours from the inferred end time.
+  3. If the user specifies a time (e.g., "this morning"), infer the appropriate window on the simulation date (2026-01-29).
+  
+  Output JSON ONLY:
+  {
+    "start_time": "ISO8601 string",
+    "end_time": "ISO8601 string",
+    "reasoning": "Brief explanation"
+  }
+  `;
+
+  const res = await fetch(OLLAMA_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "llama3.2:3b",
+      prompt: prompt,
+      stream: false,
+      temperature: 0.1,
+      format: "json"
+    })
+  });
+
+  try {
+    const data = await res.json();
+    return JSON.parse(data.response);
+  } catch (e) {
+    console.error("Error parsing time inference:", e);
+    // Fallback: 6 hours before SIMULATION_NOW
+    const end = new Date(SIMULATION_NOW);
+    const start = new Date(end.getTime() - 6 * 60 * 60 * 1000);
+    return {
+      start_time: start.toISOString(),
+      end_time: end.toISOString(),
+      reasoning: "Fallback default window"
+    };
+  }
+}
+
 // ---- CALL MCP TOOL ----
 async function callTool(toolName, args) {
   console.log(`\n🛠️  Calling tool: ${toolName}`);
-  console.log(`📋 Arguments:`, JSON.stringify(args, null, 2));
+  // console.log(`📋 Arguments:`, JSON.stringify(args, null, 2));
 
   const res = await fetch(`${MCP_URL}/tools/${toolName}`, {
     method: "POST",
@@ -64,36 +109,32 @@ async function callTool(toolName, args) {
   return res.json();
 }
 
-// ---- SECURITY INVESTIGATION AGENT ----
-async function investigateIncident() {
+// ---- INVESTIGATION LOGIC ----
+async function investigateIncident(timeWindow) {
   console.log("\n" + "=".repeat(80));
-  console.log("🚨 DEEPTRACE SECURITY INCIDENT INVESTIGATION");
+  console.log(`🕵️ STARTING INVESTIGATION`);
+  console.log(`⏰ Time Window: ${timeWindow.start_time} to ${timeWindow.end_time}`);
   console.log("=".repeat(80));
-  console.log("\n📢 ALERT: High error rate detected on search-api service");
-  console.log("⏰ Alert Time: 2026-01-29T14:28:00Z");
-  console.log("🎯 Affected Service: search-api");
-  console.log("📊 Error Rate: 45% (baseline: 0.2%)");
-  console.log("\n" + "-".repeat(80));
 
   const investigationSteps = [
     {
       step: 1,
-      description: "Fetch incident timeline to understand event sequence",
+      description: "Fetch incident timeline",
       tool: "fetch_incident_timeline",
       args: {
-        start_time: "2026-01-29T14:00:00.000Z",
-        end_time: "2026-01-29T14:35:00.000Z",
+        start_time: timeWindow.start_time,
+        end_time: timeWindow.end_time,
         sources: ["all"]
       }
     },
     {
       step: 2,
-      description: "Analyze logs to identify attack patterns",
+      description: "Analyze logs",
       tool: "analyze_logs",
       args: {
         time_range: {
-          start: "2026-01-29T14:00:00.000Z",
-          end: "2026-01-29T14:35:00.000Z"
+          start: timeWindow.start_time,
+          end: timeWindow.end_time
         },
         log_level: "all",
         limit: 500
@@ -101,12 +142,16 @@ async function investigateIncident() {
     },
     {
       step: 3,
-      description: "Identify root cause using correlated data",
+      description: "Identify root cause",
       tool: "identify_root_cause",
       args: {
-        incident_id: "INC-20260129-001",
+        incident_id: `INC-${Date.now()}`,
         include_metrics: true,
-        include_logs: true
+        include_logs: true,
+        time_range: {
+          start: timeWindow.start_time,
+          end: timeWindow.end_time
+        }
       }
     },
     {
@@ -114,8 +159,8 @@ async function investigateIncident() {
       description: "Generate remediation plan",
       tool: "suggest_remediation",
       args: {
-        root_cause: "", // Will be filled from step 3
-        attack_type: "", // Will be filled from step 2
+        root_cause: "",
+        attack_type: "",
         severity: "critical",
         include_commands: true
       }
@@ -124,39 +169,28 @@ async function investigateIncident() {
 
   const results = {};
 
-  // Execute investigation steps
   for (const step of investigationSteps) {
-    console.log(`\n${"=".repeat(80)}`);
-    console.log(`📍 STEP ${step.step}: ${step.description}`);
-    console.log("=".repeat(80));
+    console.log(`\n📍 STEP ${step.step}: ${step.description}`);
 
     try {
-      // Fill in dynamic arguments from previous steps
       if (step.step === 4) {
-        step.args.root_cause = results.step3?.root_cause || "Missing input validation";
-        step.args.attack_type = results.step2?.ai_analysis?.attack_type || "JSON Payload Bomb";
+        step.args.root_cause = results.step3?.root_cause || "Unknown anomaly";
+        step.args.attack_type = results.step2?.ai_analysis?.attack_type || "Unknown";
       }
 
       const result = await callTool(step.tool, step.args);
       results[`step${step.step}`] = result;
 
-      // Display key findings
-      console.log("\n✅ Tool execution completed");
+      // Use the detailed display function
       displayStepResults(step.step, result);
 
     } catch (error) {
       console.error(`\n❌ Error in step ${step.step}:`, error.message);
       break;
     }
-
-    // Pause between steps for readability
-    await new Promise(resolve => setTimeout(resolve, 1000));
   }
 
-  // Generate final incident report
-  console.log("\n" + "=".repeat(80));
-  console.log("📋 FINAL INCIDENT REPORT");
-  console.log("=".repeat(80));
+  // Final Report
   generateIncidentReport(results);
 }
 
@@ -169,7 +203,7 @@ function displayStepResults(step, result) {
       console.log(`   • Critical Events: ${result.summary?.by_severity?.critical || 0}`);
       console.log(`   • High Severity: ${result.summary?.by_severity?.high || 0}`);
       console.log(`   • Attack Patterns Found: ${result.attack_patterns?.length || 0}`);
-      
+
       if (result.attack_patterns && result.attack_patterns.length > 0) {
         console.log(`\n🎯 Attack Patterns Detected:`);
         result.attack_patterns.forEach(pattern => {
@@ -185,7 +219,7 @@ function displayStepResults(step, result) {
       console.log(`   • Error Count: ${result.statistics?.error_count || 0}`);
       console.log(`   • Large Payloads: ${result.statistics?.large_payload_count || 0}`);
       console.log(`   • Unique IPs: ${result.statistics?.unique_ips || 0}`);
-      
+
       if (result.ai_analysis) {
         console.log(`\n🤖 AI Analysis:`);
         console.log(`   • Attack Type: ${result.ai_analysis.attack_type}`);
@@ -207,8 +241,10 @@ function displayStepResults(step, result) {
       console.log(`\n🎯 Root Cause Analysis:`);
       console.log(`   • Root Cause: ${result.root_cause}`);
       console.log(`   • Attack Type: ${result.attack_type}`);
-      console.log(`   • Confidence: ${(result.confidence_score * 100).toFixed(1)}%`);
-      
+      // Handle missing confidence score gracefully
+      const confidence = result.confidence_score !== undefined ? (result.confidence_score * 100).toFixed(1) + '%' : 'N/A';
+      console.log(`   • Confidence: ${confidence}`);
+
       if (result.contributing_factors && result.contributing_factors.length > 0) {
         console.log(`\n⚠️  Contributing Factors:`);
         result.contributing_factors.forEach((factor, i) => {
@@ -265,21 +301,23 @@ function generateIncidentReport(results) {
   const remediation = results.step4;
 
   console.log(`
+${"=".repeat(80)}
+📋 FINAL INCIDENT REPORT
+${"=".repeat(80)}
 INCIDENT ID: ${rootCause?.incident_id || 'INC-20260129-001'}
 SEVERITY: Critical
 STATUS: Mitigated
 
 EXECUTIVE SUMMARY:
-${remediation?.summary || 'A JSON payload bomb attack was detected against the search API, exploiting missing input validation. The attack caused service degradation with 45% error rate and multiple pod restarts.'}
+${remediation?.summary || 'A JSON payload bomb attack was detected against the search API, exploiting missing input validation. The attack caused service degradation and multiple pod restarts.'}
 
 ROOT CAUSE:
 ${rootCause?.root_cause || 'Missing input validation on /api/search endpoint'}
 
 ATTACK DETAILS:
 • Type: ${logAnalysis?.ai_analysis?.attack_type || 'JSON Payload Bomb'}
-• Source IP: 203.0.113.45
-• Attack Window: 14:15 - 14:30 UTC
-• Requests: ${logAnalysis?.statistics?.large_payload_count || 47} large payloads (5-10MB)
+• Source IP: ${logAnalysis?.top_error_ips ? Object.keys(logAnalysis.top_error_ips)[0] : '203.0.113.45'}
+• Requests: ${logAnalysis?.statistics?.large_payload_count || 47} large payloads (>5MB)
 • Impact: ${rootCause?.impact_assessment?.pod_restarts || 15} pod restarts, ${rootCause?.impact_assessment?.oom_kills || 15} OOM kills
 
 IMMEDIATE ACTIONS TAKEN:
@@ -302,13 +340,32 @@ ESTIMATED RECOVERY TIME:
   console.log("=".repeat(80));
 }
 
-// ---- RUN INVESTIGATION ----
-console.log("\n🚀 Starting DeepTrace Security Investigation Agent...\n");
-
-investigateIncident().catch(error => {
-  console.error("\n❌ Investigation failed:", error.message);
-  console.error(error.stack);
-  process.exit(1);
+// ---- INTERACTIVE LOOP ----
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
 });
- //BOB
 
+console.clear();
+console.log("🛡️  DeepTrace Agent (Interactive Mode)");
+console.log(`📅 Simulation Current Time: ${SIMULATION_NOW}`);
+console.log("Type your report (e.g., 'Website is down', 'High latency detected') or 'exit' to quit.\n");
+
+function ask() {
+  rl.question('👤 User: ', async (input) => {
+    if (input.toLowerCase() === 'exit') {
+      rl.close();
+      return;
+    }
+
+    console.log("🤖 Agent: Analyzing request...");
+    const timeWindow = await inferTimeframe(input);
+    console.log(`   Inferred Window: ${timeWindow.reasoning}`);
+
+    await investigateIncident(timeWindow);
+
+    ask();
+  });
+}
+
+ask();

@@ -1,299 +1,247 @@
-// Script to generate realistic attack simulation data
+// Script to generate realistic, randomized attack simulation data
 const fs = require('fs');
+const path = require('path');
 
-// Helper function to generate random timestamp
-function generateTimestamp(baseTime, offsetMinutes, offsetSeconds = 0) {
-  const base = new Date(baseTime);
-  base.setMinutes(base.getMinutes() + offsetMinutes);
-  base.setSeconds(base.getSeconds() + offsetSeconds);
-  return base.toISOString();
+console.log('🎲 Generating randomized realistic attack data...');
+
+// --- CONFIGURATION ---
+const BASE_TIME = new Date('2026-01-29T14:00:00.000Z');
+const ATTACK_START_OFFSET_MIN = 15; // Attack starts at 14:15
+const TOTAL_DURATION_MIN = 35; // Runs until 14:35
+
+// Botnet IPs (Distributed Attack)
+const ATTACKER_IPS = [
+  '203.0.113.45',  // C&C / Main Node
+  '198.51.100.23', // Bot 1
+  '198.51.100.89', // Bot 2
+  '192.0.2.14',    // Bot 3
+  '192.0.2.188'    // Bot 4
+];
+
+const NORMAL_IPS = [
+  '192.168.1.45', '192.168.1.67', '192.168.1.89', '10.0.0.23',
+  '10.0.0.45', '10.0.0.78', '172.16.0.12', '172.16.0.34'
+];
+
+const USER_AGENTS = {
+  NORMAL: [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (HTML, like Gecko) Chrome/119.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1'
+  ],
+  ATTACK: [
+    'python-requests/2.28.0',
+    'curl/7.81.0',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', // Spoofed
+    'Go-http-client/1.1'
+  ]
+};
+
+// --- HELPERS ---
+
+// Random integer between min and max (inclusive)
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+// Get random element from array
+const randomChoice = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+// Add random jitter to time (Poisson-like arrival)
+function addJitter(date, msRange) {
+  const newDate = new Date(date);
+  newDate.setMilliseconds(newDate.getMilliseconds() + randomInt(-msRange, msRange));
+  return newDate;
 }
 
-// Generate application logs (200+ entries)
+// Generate Logs
 function generateApplicationLogs() {
   const logs = [];
-  const baseTime = '2026-01-29T14:00:00.000Z';
-  const attackerIP = '203.0.113.45';
-  const normalIPs = [
-    '192.168.1.45', '192.168.1.67', '192.168.1.89',
-    '10.0.0.23', '10.0.0.45', '10.0.0.78',
-    '172.16.0.12', '172.16.0.34', '172.16.0.56'
-  ];
-  
-  const endpoints = ['/api/search', '/api/products', '/api/users', '/api/cart'];
-  const queries = ['laptop', 'phone', 'tablet', 'headphones', 'camera', 'watch'];
-  
-  // Generate normal traffic (14:00 - 14:35, ~153 entries)
-  for (let i = 0; i < 153; i++) {
-    const minuteOffset = Math.floor(i / 5);
-    const secondOffset = (i % 5) * 12;
-    const ip = normalIPs[Math.floor(Math.random() * normalIPs.length)];
-    const endpoint = endpoints[Math.floor(Math.random() * endpoints.length)];
-    
+  let currentTime = new Date(BASE_TIME);
+  const endTime = new Date(BASE_TIME.getTime() + TOTAL_DURATION_MIN * 60000);
+
+  // Normal traffic generator loop
+  let normalTrafficParams = { meanIntervalMs: 12000, varianceMs: 5000 };
+
+  // Attack traffic events
+  const attackEvents = [];
+
+  // 1. Generate BACKGROUND Normal Traffic
+  let t = new Date(BASE_TIME);
+  while (t < endTime) {
+    // Variable interval for realistic traffic waves
+    const interval = Math.max(100, normalTrafficParams.meanIntervalMs + randomInt(-normalTrafficParams.varianceMs, normalTrafficParams.varianceMs));
+    t = new Date(t.getTime() + interval);
+
+    if (t >= endTime) break;
+
     logs.push({
-      timestamp: generateTimestamp(baseTime, minuteOffset, secondOffset),
+      timestamp: t.toISOString(),
       level: 'info',
       service: 'search-api',
-      endpoint: endpoint,
+      endpoint: randomChoice(['/api/search', '/api/products', '/api/users']),
       method: 'POST',
-      request_size: Math.floor(Math.random() * 2000) + 500,
-      response_time_ms: Math.floor(Math.random() * 150) + 150,
+      request_size: randomInt(300, 2500),
+      response_time_ms: randomInt(80, 450), // Normal latency
       status_code: 200,
-      source_ip: ip,
-      user_agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-      query: queries[Math.floor(Math.random() * queries.length)]
+      source_ip: randomChoice(NORMAL_IPS),
+      user_agent: randomChoice(USER_AGENTS.NORMAL),
+      query: randomChoice(['laptop', 'shoes', 'watch', 'monitor'])
     });
   }
-  
-  // Generate attack traffic (14:15 - 14:30, 47 entries)
-  for (let i = 0; i < 47; i++) {
-    const minuteOffset = 15 + Math.floor(i / 3);
-    const secondOffset = (i % 3) * 20;
-    const requestSize = Math.floor(Math.random() * 5000000) + 5000000; // 5-10MB
-    const responseTime = Math.floor(Math.random() * 4000) + 6000; // 6-10 seconds
-    
-    logs.push({
-      timestamp: generateTimestamp(baseTime, minuteOffset, secondOffset),
-      level: 'error',
-      service: 'search-api',
-      endpoint: '/api/search',
-      method: 'POST',
-      request_size: requestSize,
-      response_time_ms: responseTime,
-      status_code: i % 3 === 0 ? 500 : (i % 3 === 1 ? 504 : 503),
-      source_ip: attackerIP,
-      error: i % 2 === 0 ? 'Request timeout - payload processing exceeded limit' : 'Memory allocation failed',
-      nested_depth: Math.floor(Math.random() * 50) + 100,
-      user_agent: 'python-requests/2.28.0'
-    });
+
+  // 2. Generate ATTACK Traffic (Bursts)
+  const attackStartTime = new Date(BASE_TIME.getTime() + ATTACK_START_OFFSET_MIN * 60000);
+  const attackEndTime = new Date(attackStartTime.getTime() + 15 * 60000); // 15 min attack
+
+  let at = new Date(attackStartTime);
+  while (at < attackEndTime) {
+    // Attack traffic comes in bursts
+    const burstSize = randomInt(1, 5); // 1-5 requests in quick succession
+
+    for (let i = 0; i < burstSize; i++) {
+      const isBombs = Math.random() > 0.3; // 70% chance of being a huge payload
+      const payloadSize = isBombs ? randomInt(4 * 1024 * 1024, 12 * 1024 * 1024) : randomInt(5000, 50000); // 4-12MB or 5-50KB probing
+
+      // Massive latency for bombs
+      const latency = isBombs ? randomInt(5000, 15000) : randomInt(200, 800);
+
+      // Errors increase as system degrades
+      const attackProgress = (at.getTime() - attackStartTime.getTime()) / (15 * 60000);
+      const errorChance = 0.2 + (attackProgress * 0.7); // Starts at 20%, ends at 90%
+      const isError = Math.random() < errorChance;
+
+      let statusCode = 200;
+      let errorMsg = undefined;
+      let level = 'info';
+
+      if (isError) {
+        level = 'error';
+        statusCode = randomChoice([500, 502, 503, 504]);
+        errorMsg = randomChoice([
+          'Request timeout - payload processing exceeded limit',
+          'Memory allocation failed',
+          'JavaScript heap out of memory',
+          'Unexpected token in JSON at position 5242880'
+        ]);
+      }
+
+      logs.push({
+        timestamp: addJitter(at, 2000).toISOString(),
+        level: level,
+        service: 'search-api',
+        endpoint: '/api/search',
+        method: 'POST',
+        request_size: payloadSize,
+        response_time_ms: latency,
+        status_code: statusCode,
+        source_ip: randomChoice(ATTACKER_IPS), // Distributed IPs
+        user_agent: randomChoice(USER_AGENTS.ATTACK),
+        error: errorMsg,
+        nested_depth: isBombs ? randomInt(100, 500) : randomInt(2, 10)
+      });
+    }
+
+    // Time until next attack burst (randomized)
+    at = new Date(at.getTime() + randomInt(2000, 15000));
   }
-  
-  // Sort by timestamp
-  logs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-  
-  return logs;
+
+  return logs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
 }
 
-// Generate metrics data
 function generateMetrics() {
   const metrics = [];
-  const baseTime = '2026-01-29T14:00:00.000Z';
-  
-  // Baseline metrics (14:00 - 14:15)
-  for (let i = 0; i < 15; i++) {
+  const endTime = new Date(BASE_TIME.getTime() + TOTAL_DURATION_MIN * 60000);
+  let t = new Date(BASE_TIME);
+
+  // Per-minute metrics
+  while (t < endTime) {
+    const minutesFromStart = (t.getTime() - BASE_TIME.getTime()) / 60000;
+
+    // Baseline
+    let cpu = 20 + Math.random() * 5;
+    let mem = 35 + Math.random() * 5;
+    let errorRate = 0.001;
+    let p95 = 200;
+
+    // Attack Period
+    if (minutesFromStart >= ATTACK_START_OFFSET_MIN && minutesFromStart <= (ATTACK_START_OFFSET_MIN + 15)) {
+      const attackProgress = (minutesFromStart - ATTACK_START_OFFSET_MIN) / 15;
+
+      // Noisy, jagged increase
+      const noise = (Math.random() - 0.5) * 15;
+      cpu = Math.min(99, 25 + (attackProgress * 70) + noise);
+      mem = Math.min(95, 40 + (attackProgress * 50) + noise);
+
+      errorRate = Math.min(0.8, 0.01 + (attackProgress * 0.6) + (Math.random() * 0.1));
+      p95 = 250 + (attackProgress * 8000) + randomInt(-500, 2000);
+    }
+
     metrics.push({
-      timestamp: generateTimestamp(baseTime, i),
+      timestamp: t.toISOString(),
       service: 'search-api',
       metrics: {
-        cpu_percent: 20 + Math.random() * 10,
-        memory_percent: 35 + Math.random() * 10,
-        request_rate: 80 + Math.floor(Math.random() * 20),
+        cpu_percent: parseFloat(cpu.toFixed(1)),
+        memory_percent: parseFloat(mem.toFixed(1)),
+        request_rate: randomInt(80, 150),
         response_time: {
-          p50: 180 + Math.floor(Math.random() * 40),
-          p95: 250 + Math.floor(Math.random() * 50),
-          p99: 350 + Math.floor(Math.random() * 100)
+          p50: p95 * 0.6,
+          p95: p95,
+          p99: p95 * 1.5
         },
-        error_rate: 0.001 + Math.random() * 0.002,
-        active_connections: 45 + Math.floor(Math.random() * 15)
+        error_rate: parseFloat(errorRate.toFixed(4)),
+        active_connections: randomInt(40, 300)
       }
     });
+
+    t = new Date(t.getTime() + 60000); // +1 minute
   }
-  
-  // Attack progression (14:15 - 14:30)
-  for (let i = 15; i < 30; i++) {
-    const attackProgress = (i - 15) / 15; // 0 to 1
-    metrics.push({
-      timestamp: generateTimestamp(baseTime, i),
-      service: 'search-api',
-      metrics: {
-        cpu_percent: 25 + (attackProgress * 70),
-        memory_percent: 40 + (attackProgress * 50),
-        request_rate: 90 + Math.floor(attackProgress * 60),
-        response_time: {
-          p50: 200 + Math.floor(attackProgress * 6000),
-          p95: 300 + Math.floor(attackProgress * 9500),
-          p99: 400 + Math.floor(attackProgress * 12000)
-        },
-        error_rate: 0.002 + (attackProgress * 0.45),
-        active_connections: 50 + Math.floor(attackProgress * 200)
-      }
-    });
-  }
-  
-  // Recovery phase (14:30 - 14:35)
-  for (let i = 30; i < 35; i++) {
-    const recoveryProgress = (i - 30) / 5;
-    metrics.push({
-      timestamp: generateTimestamp(baseTime, i),
-      service: 'search-api',
-      metrics: {
-        cpu_percent: 95 - (recoveryProgress * 70),
-        memory_percent: 90 - (recoveryProgress * 50),
-        request_rate: 150 - Math.floor(recoveryProgress * 60),
-        response_time: {
-          p50: 6200 - Math.floor(recoveryProgress * 6000),
-          p95: 9800 - Math.floor(recoveryProgress * 9500),
-          p99: 12400 - Math.floor(recoveryProgress * 12000)
-        },
-        error_rate: 0.45 - (recoveryProgress * 0.448),
-        active_connections: 250 - Math.floor(recoveryProgress * 200)
-      }
-    });
-  }
-  
+
   return metrics;
 }
 
-// Generate API Gateway logs
-function generateAPIGatewayLogs() {
-  const logs = [];
-  const baseTime = '2026-01-29T14:00:00.000Z';
-  const attackerIP = '203.0.113.45';
-  
-  // Normal requests
-  for (let i = 0; i < 80; i++) {
-    const minuteOffset = Math.floor(i / 3);
-    logs.push({
-      request_id: `req-${Math.random().toString(36).substr(2, 9)}`,
-      timestamp: generateTimestamp(baseTime, minuteOffset, (i % 3) * 20),
-      method: 'POST',
-      endpoint: '/api/search',
-      request_size: Math.floor(Math.random() * 2000) + 500,
-      request_headers: {
-        'content-type': 'application/json',
-        'content-length': String(Math.floor(Math.random() * 2000) + 500)
-      },
-      response_code: 200,
-      response_time_ms: Math.floor(Math.random() * 150) + 150,
-      source_ip: `192.168.1.${Math.floor(Math.random() * 100) + 1}`,
-      geo_location: {
-        country: 'US',
-        city: 'San Francisco'
-      },
-      rate_limit_hit: false
-    });
-  }
-  
-  // Attack requests
-  for (let i = 0; i < 47; i++) {
-    const minuteOffset = 15 + Math.floor(i / 3);
-    const requestSize = Math.floor(Math.random() * 5000000) + 5000000;
-    logs.push({
-      request_id: `req-${Math.random().toString(36).substr(2, 9)}`,
-      timestamp: generateTimestamp(baseTime, minuteOffset, (i % 3) * 20),
-      method: 'POST',
-      endpoint: '/api/search',
-      request_size: requestSize,
-      request_headers: {
-        'content-type': 'application/json',
-        'content-length': String(requestSize)
-      },
-      response_code: i % 3 === 0 ? 500 : (i % 3 === 1 ? 504 : 503),
-      response_time_ms: Math.floor(Math.random() * 4000) + 6000,
-      source_ip: attackerIP,
-      geo_location: {
-        country: 'Unknown',
-        city: 'Unknown'
-      },
-      rate_limit_hit: false
-    });
-  }
-  
-  logs.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-  return logs;
-}
+// Generate and Save
+const path_logs = path.join(__dirname, 'application_logs.json');
+const path_metrics = path.join(__dirname, 'metrics.json');
+const path_gateway = path.join(__dirname, 'api_gateway_logs.json');
+const path_k8s = path.join(__dirname, 'kubernetes_events.json');
 
-// Generate Kubernetes events
-function generateKubernetesEvents() {
-  const events = [];
-  const baseTime = '2026-01-29T14:00:00.000Z';
-  const podNames = [
-    'search-api-7d9f8c-xk2p9',
-    'search-api-7d9f8c-m4n7q',
-    'search-api-7d9f8c-p8r2t',
-    'search-api-7d9f8c-w5y3k',
-    'search-api-7d9f8c-z9b6v'
-  ];
-  
-  // Normal events
-  events.push({
-    timestamp: generateTimestamp(baseTime, 0),
-    event_type: 'deployment_update',
-    namespace: 'production',
-    pod_name: 'search-api-7d9f8c',
-    reason: 'ScalingReplicaSet',
-    message: 'Scaled up replica set to 5',
-    replica_count: 5
-  });
-  
-  // OOM kills during attack
-  for (let i = 0; i < 15; i++) {
-    const minuteOffset = 22 + Math.floor(i / 2);
-    events.push({
-      timestamp: generateTimestamp(baseTime, minuteOffset, (i % 2) * 30),
+const appLogs = generateApplicationLogs();
+const metricsData = generateMetrics();
+
+// Reuse app logs for gateway logs to ensure consistency, but strip some app-only fields
+const gatewayLogs = appLogs.map(log => ({
+  request_id: `req-${Math.random().toString(36).substr(2, 9)}`,
+  timestamp: log.timestamp,
+  method: log.method,
+  endpoint: log.endpoint,
+  request_size: log.request_size,
+  response_code: log.status_code,
+  response_time_ms: log.response_time_ms,
+  source_ip: log.source_ip,
+  user_agent: log.user_agent // Gateway sees UA
+}));
+
+// Simple K8s events generation based on Metrics
+const k8sEvents = [];
+metricsData.forEach(m => {
+  if (m.metrics.memory_percent > 70 && Math.random() > 0.3) {
+    k8sEvents.push({
+      timestamp: m.timestamp,
       event_type: 'pod_restart',
       namespace: 'production',
-      pod_name: podNames[i % 5],
+      pod_name: `search-api-${randomInt(1000, 9999)}`,
       reason: 'OOMKilled',
       message: 'Container exceeded memory limit',
-      resource_usage: {
-        memory_limit: '2Gi',
-        memory_used: `${2.0 + Math.random() * 0.5}Gi`
-      },
-      restart_count: Math.floor(i / 5) + 1
+      restart_count: randomInt(1, 5)
     });
   }
-  
-  // Health check failures
-  for (let i = 0; i < 8; i++) {
-    const minuteOffset = 20 + Math.floor(i / 2);
-    events.push({
-      timestamp: generateTimestamp(baseTime, minuteOffset, (i % 2) * 30),
-      event_type: 'health_check_failed',
-      namespace: 'production',
-      pod_name: podNames[i % 5],
-      reason: 'Unhealthy',
-      message: 'Liveness probe failed: HTTP probe failed with statuscode: 503',
-      consecutive_failures: Math.floor(i / 2) + 1
-    });
-  }
-  
-  // Auto-scaling events
-  events.push({
-    timestamp: generateTimestamp(baseTime, 25),
-    event_type: 'horizontal_scaling',
-    namespace: 'production',
-    pod_name: 'search-api-7d9f8c',
-    reason: 'ScalingReplicaSet',
-    message: 'Scaled up replica set from 5 to 8 due to CPU utilization',
-    replica_count: 8,
-    trigger_metric: 'cpu_percent',
-    trigger_value: 95
-  });
-  
-  events.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-  return events;
-}
+});
 
-// Generate all data files
-console.log('Generating attack simulation data...');
+fs.writeFileSync(path_logs, JSON.stringify(appLogs, null, 2));
+fs.writeFileSync(path_metrics, JSON.stringify(metricsData, null, 2));
+fs.writeFileSync(path_gateway, JSON.stringify(gatewayLogs, null, 2));
+fs.writeFileSync(path_k8s, JSON.stringify(k8sEvents, null, 2));
 
-const applicationLogs = generateApplicationLogs();
-const metrics = generateMetrics();
-const apiGatewayLogs = generateAPIGatewayLogs();
-const kubernetesEvents = generateKubernetesEvents();
-
-const path = require('path');
-const dataDir = __dirname;
-
-fs.writeFileSync(path.join(dataDir, 'application_logs.json'), JSON.stringify(applicationLogs, null, 2));
-fs.writeFileSync(path.join(dataDir, 'metrics.json'), JSON.stringify(metrics, null, 2));
-fs.writeFileSync(path.join(dataDir, 'api_gateway_logs.json'), JSON.stringify(apiGatewayLogs, null, 2));
-fs.writeFileSync(path.join(dataDir, 'kubernetes_events.json'), JSON.stringify(kubernetesEvents, null, 2));
-
-console.log(`✅ Generated ${applicationLogs.length} application log entries`);
-console.log(`✅ Generated ${metrics.length} metric data points`);
-console.log(`✅ Generated ${apiGatewayLogs.length} API gateway log entries`);
-console.log(`✅ Generated ${kubernetesEvents.length} Kubernetes events`);
-console.log('\nData files created in data/ directory');
-
+console.log(`✅ Generated ${appLogs.length} randomized log entries.`);
+console.log(`✅ Generated ${metricsData.length} metric points.`);
+console.log(`✅ Generated ${gatewayLogs.length} gateway logs.`);
+console.log(`✅ Generated ${k8sEvents.length} k8s events.`);

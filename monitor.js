@@ -12,7 +12,7 @@ const MCP_URL = "http://localhost:3000";
 const CONFIG = {
   // Monitoring intervals
   CHECK_INTERVAL_MS: 60000, // Check every 1 minute
-  ANOMALY_WINDOW_MINUTES: 5, // Look at last 5 minutes of data
+  ANOMALY_WINDOW_MINUTES: 2, // Look at last 5 minutes of data
   
   // Anomaly thresholds
   THRESHOLDS: {
@@ -358,12 +358,28 @@ async function startMonitoring() {
     try {
       // Check for metric anomalies
       const metricCheck = detectMetricAnomalies();
-      console.log(`   • Metric anomalies: ${metricCheck.anomalies.length}`);
       
       // Check for log anomalies
       const logCheck = detectLogAnomalies();
-      console.log(`   • Large payloads: ${logCheck.large_payloads.length}`);
-      console.log(`   • Error logs: ${logCheck.error_count}`);
+      
+      // Get total logs checked in this run
+      const window = CONFIG.USE_LIVE_DATA ? getAnomalyWindow() : {
+        start: "2026-01-29T14:15:00.000Z",
+        end: "2026-01-29T14:30:00.000Z"
+      };
+      
+      const totalLogsChecked = CONFIG.USE_LIVE_DATA
+        ? liveDataSource.queryLiveLogs({ startTime: window.start, endTime: window.end }).length
+        : dataSources.applicationLogs.query({ startTime: window.start, endTime: window.end }).length;
+      
+      const errorFreeCount = totalLogsChecked - logCheck.error_count;
+      
+      console.log(`\n📊 Logs Analyzed in This Run:`);
+      console.log(`   • Total logs checked: ${totalLogsChecked}`);
+      console.log(`   • Error-free logs: ${errorFreeCount} (${((errorFreeCount / totalLogsChecked) * 100).toFixed(1)}%)`);
+      console.log(`   • Error logs: ${logCheck.error_count} (${((logCheck.error_count / totalLogsChecked) * 100).toFixed(1)}%)`);
+      console.log(`   • Large payloads (>1MB): ${logCheck.large_payloads.length}`);
+      console.log(`   • Metric anomalies: ${metricCheck.anomalies.length}`);
       
       // Trigger investigation if anomalies detected
       if (metricCheck.hasAnomalies || logCheck.hasAnomalies) {

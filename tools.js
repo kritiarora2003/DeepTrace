@@ -2,6 +2,7 @@ const { z } = require("zod");
 const dataSources = require("./services/data_sources");
 const aiService = require("./services/ai_service");
 const timelineBuilder = require("./utils/timeline_builder");
+const PredictiveEngine = require("./services/predictive_engine");
 
 const tools = {
   /**
@@ -183,6 +184,51 @@ const tools = {
           anomalies: [],
           statistics: {}
         };
+      }
+    }
+  },
+
+  /**
+   * Tool 5: Predictive Threat Intelligence
+   * Train a lightweight predictive model on stored attack memory and return a short-term prediction + recommended actions.
+   */
+  predictive_threats: {
+    description: "Predict likely next attack targets and types using stored attack memory. Returns prediction, confidence, rationale, and recommended actions.",
+    schema: z.object({
+      time_window_minutes: z.number().optional().describe('Time window (minutes) to weight recent events; default 60'),
+      include_briefing: z.boolean().optional().describe('Include AI-generated briefing (requires Ollama)')
+    }),
+    execute: async ({ time_window_minutes = 60, include_briefing = true } = {}) => {
+      try {
+        const engine = new PredictiveEngine();
+
+        // Load memory from in-app data sources
+        engine.memory.applicationLogs = dataSources.applicationLogs.getAll();
+        engine.memory.apiGatewayLogs = dataSources.apiGatewayLogs.getAll();
+        engine.memory.metrics = dataSources.metrics.getAll();
+        engine.memory.kubernetesEvents = dataSources.kubernetesEvents.getAll();
+
+        engine.train();
+        const prediction = engine.predict({ timeWindowMinutes: time_window_minutes });
+
+        // Optionally generate an AI briefing for presentation
+        let briefing = null;
+        if (include_briefing) {
+          try {
+            const prompt = `You are a senior security analyst. Given this prediction:\n${JSON.stringify(prediction, null, 2)}\nWrite a concise (3-4 sentence) briefing describing the predicted attack, expected impact, and 2 immediate mitigation steps.`;
+            briefing = await aiService.callLLM(prompt, 0.2);
+          } catch (err) {
+            briefing = `AI briefing unavailable: ${err.message}`;
+          }
+        }
+
+        return {
+          prediction,
+          briefing,
+          generated_at: new Date().toISOString()
+        };
+      } catch (error) {
+        return { error: `Prediction failed: ${error.message}` };
       }
     }
   },

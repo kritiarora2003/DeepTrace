@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>DeepTrace — Simple Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: Inter, system-ui, sans-serif; background: #f6f7fb; color:#111; margin:0; padding:20px }
+      .container { max-width:1100px; margin:0 auto }
+      header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px }
+      h1 { font-size:20px; margin:0 }
+      .controls { display:flex; gap:8px }
+      button { background:#2563eb; color:white; border:0; padding:10px 14px; border-radius:8px; cursor:pointer }
+      button.secondary { background:#10b981 }
+      .panel { background:white; padding:14px; border-radius:10px; box-shadow:0 6px 20px rgba(17,24,39,0.06); margin-bottom:14px }
+      .row { display:flex; gap:14px }
+      .col { flex:1 }
+      .small { font-size:13px; color:#555 }
+      canvas { width:100% !important; height:320px !important }
+      .prediction { display:flex; gap:12px; align-items:center }
+      .meta { font-size:13px; color:#333 }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>DeepTrace — Simple Dashboard</h1>
+        <div class="controls">
+          <button id="refresh">Refresh</button>
+          <button id="run-prediction" class="secondary">Run Prediction</button>
+        </div>
+      </header>
+
+      <div class="panel">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="small">Prediction</div>
+            <div id="pred-text" style="font-weight:600; margin-top:6px">—</div>
+            <div id="pred-details" class="small" style="margin-top:6px">—</div>
+          </div>
+          <div style="text-align:right">
+            <div class="small">Recommended Action</div>
+            <div id="pred-action" style="font-weight:600; margin-top:6px">—</div>
+            <button id="apply-mitigation" style="margin-top:8px">Apply Mitigation</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col panel">
+          <div class="small">CPU %</div>
+          <canvas id="cpuChart"></canvas>
+        </div>
+        <div class="col panel">
+          <div class="small">p95 Response (ms)</div>
+          <canvas id="p95Chart"></canvas>
+        </div>
+      </div>
+
+      <div id="log" class="small" style="margin-top:12px;color:#444"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const $ = id => document.getElementById(id);
+      let cpuChart, p95Chart;
+
+      async function fetchSummary() {
+        const res = await fetch('/demo/summary');
+        if (!res.ok) throw new Error(await res.text());
+        return res.json();
+      }
+
+      function renderCharts(labels, cpu, p95) {
+        const ctxCpu = $('cpuChart').getContext('2d');
+        const ctxP95 = $('p95Chart').getContext('2d');
+
+        if (cpuChart) cpuChart.destroy();
+        if (p95Chart) p95Chart.destroy();
+
+        cpuChart = new Chart(ctxCpu, {
+          type: 'line',
+          data: { labels, datasets: [{ label:'CPU %', data: cpu, borderColor:'#2563eb', backgroundColor:'rgba(37,99,235,0.08)', fill:true }] },
+          options: { plugins:{legend:{display:false}} }
+        });
+
+        p95Chart = new Chart(ctxP95, {
+          type: 'line',
+          data: { labels, datasets: [{ label:'p95 ms', data: p95, borderColor:'#ef4444', backgroundColor:'rgba(239,68,68,0.06)', fill:true }] },
+          options: { plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true}} }
+        });
+      }
+
+      async function refresh() {
+        try {
+          $('log').textContent = 'Loading...';
+          const data = await fetchSummary();
+
+          const labels = data.metrics.labels;
+          renderCharts(labels, data.metrics.cpu, data.metrics.p95);
+
+          $('pred-text').textContent = data.prediction.predicted_attack_type + ' (' + data.prediction.confidence + ')';
+          $('pred-details').textContent = 'Endpoint: ' + (data.prediction.predicted_endpoint || 'N/A') + ' • Source: ' + (data.prediction.predicted_source || 'N/A');
+          $('pred-action').textContent = (data.prediction.recommended_actions && data.prediction.recommended_actions[0]) ? data.prediction.recommended_actions[0].action : '—';
+
+          $('log').textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+        } catch (err) {
+          $('log').textContent = 'Error: ' + err.message;
+        }
+      }
+
+      document.getElementById('refresh').addEventListener('click', refresh);
+      document.getElementById('run-prediction').addEventListener('click', refresh);
+
+      document.getElementById('apply-mitigation').addEventListener('click', async () => {
+        try {
+          $('log').textContent = 'Applying mitigation...';
+          const res = await fetch('/demo/mitigate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ action: 'apply_request_size_limit' }) });
+          const data = await res.json();
+          if (data.error) throw new Error(data.error);
+          renderCharts(data.metrics.labels, data.metrics.cpu, data.metrics.p95);
+          $('log').textContent = 'Mitigation applied — charts updated';
+        } catch (err) {
+          $('log').textContent = 'Mitigation failed: ' + err.message;
+        }
+      });
+
+      // initial load
+      refresh();
+    </script>
+  </body>
+</html>

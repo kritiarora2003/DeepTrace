@@ -44,7 +44,7 @@
         }
 
         .subtitle {
-            color: #666;
+            color: #ffffff;
             font-size: 1.1em;
             margin-top: 10px;
         }
@@ -227,19 +227,21 @@
         }
 
         .refresh-btn {
-            background: #667eea;
-            color: white;
+            background: #ff6b6b; /* brighter, high-contrast */
+            color: #ffffff;
             border: none;
             padding: 12px 30px;
             border-radius: 8px;
             font-size: 1em;
             cursor: pointer;
             margin-top: 20px;
-            transition: background 0.3s ease;
+            transition: background 0.2s ease, transform 0.12s ease;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.12);
         }
 
         .refresh-btn:hover {
-            background: #5568d3;
+            background: #e85a5a;
+            transform: translateY(-2px);
         }
 
         @media (max-width: 768px) {

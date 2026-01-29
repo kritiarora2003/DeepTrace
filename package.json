@@ -1,14 +1,25 @@
 {
-  "name": "node_mcp-testing",
+  "name": "deeptrace",
   "version": "1.0.0",
-  "description": "",
+  "description": "AI-Powered Security Incident Investigation MCP Server",
   "license": "ISC",
-  "author": "",
+  "author": "DeepTrace Team",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "mcp_server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node mcp_server.js",
+    "test": "node test_tools.js",
+    "generate-data": "node data/generate_attack_data.js",
+    "demo": "node agent.js",
+    "dev": "node mcp_server.js"
   },
+  "keywords": [
+    "mcp",
+    "security",
+    "incident-response",
+    "ai",
+    "observability"
+  ],
   "dependencies": {
     "express": "^5.2.1",
     "node-fetch": "^3.3.2",

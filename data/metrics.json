@@ -1,0 +1,562 @@
+[
+  {
+    "timestamp": "2026-01-29T14:00:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 24.597230111088816,
+      "memory_percent": 39.18040547073103,
+      "request_rate": 97,
+      "response_time": {
+        "p50": 200,
+        "p95": 266,
+        "p99": 375
+      },
+      "error_rate": 0.002949596387796142,
+      "active_connections": 46
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:01:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 22.754752234258454,
+      "memory_percent": 44.89792189246951,
+      "request_rate": 84,
+      "response_time": {
+        "p50": 187,
+        "p95": 252,
+        "p99": 419
+      },
+      "error_rate": 0.002375033866791643,
+      "active_connections": 47
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:02:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 26.779015331345892,
+      "memory_percent": 42.71286523053832,
+      "request_rate": 88,
+      "response_time": {
+        "p50": 205,
+        "p95": 280,
+        "p99": 412
+      },
+      "error_rate": 0.0014225142511846223,
+      "active_connections": 48
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:03:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 22.323031767167137,
+      "memory_percent": 36.84973038817094,
+      "request_rate": 89,
+      "response_time": {
+        "p50": 190,
+        "p95": 250,
+        "p99": 377
+      },
+      "error_rate": 0.0020244562074131812,
+      "active_connections": 58
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:04:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 24.089127824233103,
+      "memory_percent": 42.478175414284564,
+      "request_rate": 90,
+      "response_time": {
+        "p50": 183,
+        "p95": 270,
+        "p99": 393
+      },
+      "error_rate": 0.00161254937501414,
+      "active_connections": 50
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:05:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 21.68096542423225,
+      "memory_percent": 44.742595810139875,
+      "request_rate": 87,
+      "response_time": {
+        "p50": 209,
+        "p95": 291,
+        "p99": 365
+      },
+      "error_rate": 0.002787628917391032,
+      "active_connections": 56
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:06:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 25.303811868408438,
+      "memory_percent": 44.1238126936233,
+      "request_rate": 91,
+      "response_time": {
+        "p50": 217,
+        "p95": 297,
+        "p99": 360
+      },
+      "error_rate": 0.0010856083287181684,
+      "active_connections": 52
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:07:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 20.49396333464673,
+      "memory_percent": 42.707084072078814,
+      "request_rate": 80,
+      "response_time": {
+        "p50": 193,
+        "p95": 291,
+        "p99": 366
+      },
+      "error_rate": 0.002498157802671797,
+      "active_connections": 56
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:08:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 27.150938277337026,
+      "memory_percent": 41.83696253743787,
+      "request_rate": 97,
+      "response_time": {
+        "p50": 188,
+        "p95": 262,
+        "p99": 362
+      },
+      "error_rate": 0.002332290161753653,
+      "active_connections": 53
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:09:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 26.403794915606944,
+      "memory_percent": 36.26765137712847,
+      "request_rate": 96,
+      "response_time": {
+        "p50": 200,
+        "p95": 293,
+        "p99": 352
+      },
+      "error_rate": 0.0010786568968228576,
+      "active_connections": 53
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:10:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 25.81819780962693,
+      "memory_percent": 37.47526424470483,
+      "request_rate": 81,
+      "response_time": {
+        "p50": 212,
+        "p95": 257,
+        "p99": 448
+      },
+      "error_rate": 0.002951180488156544,
+      "active_connections": 48
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:11:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 27.38851003479642,
+      "memory_percent": 38.65077356317143,
+      "request_rate": 81,
+      "response_time": {
+        "p50": 219,
+        "p95": 274,
+        "p99": 368
+      },
+      "error_rate": 0.0026478618392818095,
+      "active_connections": 52
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:12:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 29.62882475060345,
+      "memory_percent": 40.9172986806857,
+      "request_rate": 81,
+      "response_time": {
+        "p50": 203,
+        "p95": 277,
+        "p99": 431
+      },
+      "error_rate": 0.0019432421263614857,
+      "active_connections": 47
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:13:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 24.262599027322178,
+      "memory_percent": 44.032231147573185,
+      "request_rate": 97,
+      "response_time": {
+        "p50": 195,
+        "p95": 297,
+        "p99": 431
+      },
+      "error_rate": 0.0025254580706354354,
+      "active_connections": 50
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:14:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 22.172172749101204,
+      "memory_percent": 43.31540408753693,
+      "request_rate": 84,
+      "response_time": {
+        "p50": 186,
+        "p95": 277,
+        "p99": 388
+      },
+      "error_rate": 0.0014821316155305734,
+      "active_connections": 48
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:15:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 25,
+      "memory_percent": 40,
+      "request_rate": 90,
+      "response_time": {
+        "p50": 200,
+        "p95": 300,
+        "p99": 400
+      },
+      "error_rate": 0.002,
+      "active_connections": 50
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:16:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 29.666666666666668,
+      "memory_percent": 43.333333333333336,
+      "request_rate": 94,
+      "response_time": {
+        "p50": 600,
+        "p95": 933,
+        "p99": 1200
+      },
+      "error_rate": 0.032,
+      "active_connections": 63
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:17:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 34.333333333333336,
+      "memory_percent": 46.666666666666664,
+      "request_rate": 98,
+      "response_time": {
+        "p50": 1000,
+        "p95": 1566,
+        "p99": 2000
+      },
+      "error_rate": 0.062,
+      "active_connections": 76
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:18:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 39,
+      "memory_percent": 50,
+      "request_rate": 102,
+      "response_time": {
+        "p50": 1400,
+        "p95": 2200,
+        "p99": 2800
+      },
+      "error_rate": 0.09200000000000001,
+      "active_connections": 90
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:19:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 43.66666666666667,
+      "memory_percent": 53.333333333333336,
+      "request_rate": 106,
+      "response_time": {
+        "p50": 1800,
+        "p95": 2833,
+        "p99": 3600
+      },
+      "error_rate": 0.122,
+      "active_connections": 103
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:20:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 48.33333333333333,
+      "memory_percent": 56.666666666666664,
+      "request_rate": 110,
+      "response_time": {
+        "p50": 2200,
+        "p95": 3466,
+        "p99": 4400
+      },
+      "error_rate": 0.152,
+      "active_connections": 116
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:21:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 53,
+      "memory_percent": 60,
+      "request_rate": 114,
+      "response_time": {
+        "p50": 2600,
+        "p95": 4100,
+        "p99": 5200
+      },
+      "error_rate": 0.18200000000000002,
+      "active_connections": 130
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:22:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 57.666666666666664,
+      "memory_percent": 63.33333333333333,
+      "request_rate": 118,
+      "response_time": {
+        "p50": 3000,
+        "p95": 4733,
+        "p99": 6000
+      },
+      "error_rate": 0.21200000000000002,
+      "active_connections": 143
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:23:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 62.333333333333336,
+      "memory_percent": 66.66666666666667,
+      "request_rate": 122,
+      "response_time": {
+        "p50": 3400,
+        "p95": 5366,
+        "p99": 6800
+      },
+      "error_rate": 0.242,
+      "active_connections": 156
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:24:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 67,
+      "memory_percent": 70,
+      "request_rate": 126,
+      "response_time": {
+        "p50": 3800,
+        "p95": 6000,
+        "p99": 7600
+      },
+      "error_rate": 0.272,
+      "active_connections": 170
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:25:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 71.66666666666666,
+      "memory_percent": 73.33333333333333,
+      "request_rate": 130,
+      "response_time": {
+        "p50": 4200,
+        "p95": 6633,
+        "p99": 8400
+      },
+      "error_rate": 0.302,
+      "active_connections": 183
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:26:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 76.33333333333333,
+      "memory_percent": 76.66666666666666,
+      "request_rate": 134,
+      "response_time": {
+        "p50": 4600,
+        "p95": 7266,
+        "p99": 9200
+      },
+      "error_rate": 0.33199999999999996,
+      "active_connections": 196
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:27:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 81,
+      "memory_percent": 80,
+      "request_rate": 138,
+      "response_time": {
+        "p50": 5000,
+        "p95": 7900,
+        "p99": 10000
+      },
+      "error_rate": 0.36200000000000004,
+      "active_connections": 210
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:28:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 85.66666666666667,
+      "memory_percent": 83.33333333333334,
+      "request_rate": 142,
+      "response_time": {
+        "p50": 5400,
+        "p95": 8533,
+        "p99": 10800
+      },
+      "error_rate": 0.392,
+      "active_connections": 223
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:29:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 90.33333333333333,
+      "memory_percent": 86.66666666666666,
+      "request_rate": 146,
+      "response_time": {
+        "p50": 5800,
+        "p95": 9166,
+        "p99": 11600
+      },
+      "error_rate": 0.42200000000000004,
+      "active_connections": 236
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:30:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 95,
+      "memory_percent": 90,
+      "request_rate": 150,
+      "response_time": {
+        "p50": 6200,
+        "p95": 9800,
+        "p99": 12400
+      },
+      "error_rate": 0.45,
+      "active_connections": 250
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:31:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 81,
+      "memory_percent": 80,
+      "request_rate": 138,
+      "response_time": {
+        "p50": 5000,
+        "p95": 7900,
+        "p99": 10000
+      },
+      "error_rate": 0.3604,
+      "active_connections": 210
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:32:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 67,
+      "memory_percent": 70,
+      "request_rate": 126,
+      "response_time": {
+        "p50": 3800,
+        "p95": 6000,
+        "p99": 7600
+      },
+      "error_rate": 0.2708,
+      "active_connections": 170
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:33:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 53,
+      "memory_percent": 60,
+      "request_rate": 114,
+      "response_time": {
+        "p50": 2600,
+        "p95": 4100,
+        "p99": 5200
+      },
+      "error_rate": 0.18120000000000003,
+      "active_connections": 130
+    }
+  },
+  {
+    "timestamp": "2026-01-29T14:34:00.000Z",
+    "service": "search-api",
+    "metrics": {
+      "cpu_percent": 39,
+      "memory_percent": 50,
+      "request_rate": 102,
+      "response_time": {
+        "p50": 1400,
+        "p95": 2200,
+        "p99": 2800
+      },
+      "error_rate": 0.09159999999999996,
+      "active_connections": 90
+    }
+  }
+]

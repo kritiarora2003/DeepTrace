@@ -11,7 +11,8 @@
     "test": "node test_tools.js",
     "generate-data": "node data/generate_attack_data.js",
     "demo": "node agent.js",
-    "dev": "node mcp_server.js"
+    "dev": "node mcp_server.js",
+    "visualize": "node visualize_attack.js"
   },
   "keywords": [
     "mcp",
@@ -21,6 +22,8 @@
     "observability"
   ],
   "dependencies": {
+    "chart.js": "^4.5.1",
+    "chartjs-node-canvas": "^5.0.0",
     "express": "^5.2.1",
     "node-fetch": "^3.3.2",
     "zod": "^4.3.6"

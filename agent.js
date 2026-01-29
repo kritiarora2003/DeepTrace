@@ -45,23 +45,58 @@ async function callLLM(prompt, temperature = 0.1) {
 
 // ---- INFER TIMEFRAME FROM NL PROMPT ----
 async function inferTimeframe(userPrompt) {
-  const prompt = `
-  Current Simulation Time: ${SIMULATION_NOW}
-  User Query: "${userPrompt}"
+const prompt = `
+Current Simulation Time: ${SIMULATION_NOW}
+Simulation Date Context: All inferred times must fall on or be relative to the simulation timeline (e.g., 2026-01-29 unless otherwise implied).
 
-  Task: Determine the start and end time for a security investigation based on the user's query.
-  Rules:
-  1. Default logic: If the user implies "now" or "just happened", use the Current Simulation Time as the end time.
-  2. Lookback: Unless specified otherwise, default to looking back 6 hours from the inferred end time.
-  3. If the user specifies a time (e.g., "this morning"), infer the appropriate window on the simulation date (2026-01-29).
-  
-  Output JSON ONLY:
-  {
-    "start_time": "ISO8601 string",
-    "end_time": "ISO8601 string",
-    "reasoning": "Brief explanation"
-  }
-  `;
+User Query:
+"${userPrompt}"
+
+Task:
+Infer the most appropriate investigation time window (start_time and end_time) based on the user's natural language query.
+
+Interpretation Rules (in priority order):
+
+1. Explicit Time Ranges:
+   - If the user specifies an explicit range (e.g., "between 2pm and 4pm", "from 10:00 to 11:30"), use that range directly.
+   - Assume the simulation date unless a different day is explicitly mentioned.
+
+2. Relative Temporal Expressions:
+   Interpret relative terms as follows:
+   - "now", "just happened", "currently" → end_time = Current Simulation Time
+   - "today" → from start of day (00:00) to Current Simulation Time
+   - "this morning" → 06:00 to 12:00 on the simulation date
+   - "this afternoon" → 12:00 to 18:00 on the simulation date
+   - "this evening" → 18:00 to 23:59 on the simulation date
+   - "yesterday" → 00:00 to 23:59 of the previous day
+   - "last night" → 18:00 of previous day to 06:00 of current day
+   - "tomorrow" → 00:00 to 23:59 of the next day
+   - "last week" → 7 days prior to Current Simulation Time
+   - "past X hours" or "last X hours" → look back X hours from inferred end_time
+
+3. Implicit Incident Queries:
+   - If the query implies an investigation without specifying time (e.g., "what went wrong?", "investigate the outage"),
+     assume:
+       end_time = Current Simulation Time
+       start_time = end_time minus 6 hours
+
+4. Safety Constraints:
+   - Ensure start_time is always before end_time.
+   - Do not infer future times unless the user explicitly mentions "tomorrow" or a future date.
+   - Keep the window as tight as possible while still being reasonable.
+
+Output Requirements:
+- Respond with valid JSON ONLY.
+- Do NOT include explanations outside the JSON.
+
+Output format:
+{
+  "start_time": "ISO8601 timestamp",
+  "end_time": "ISO8601 timestamp",
+  "reasoning": "One concise sentence explaining how the time window was inferred."
+}
+`;
+
 
   const res = await fetch(OLLAMA_URL, {
     method: "POST",

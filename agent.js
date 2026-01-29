@@ -33,7 +33,7 @@ async function callLLM(prompt, temperature = 0.1) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      model: "llama3.2:3b",
+      model: "mistral:7b",
       prompt: systemPrompt + "\n\n" + prompt,
       stream: false,
       temperature: temperature

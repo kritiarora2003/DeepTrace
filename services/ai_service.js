@@ -3,7 +3,7 @@ const fetch = (...args) =>
   import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const OLLAMA_URL = "http://localhost:11434/api/generate";
-const MODEL = "llama3.2:3b";
+const MODEL = "mistral:7b"; // Using Mistral 7B for better analysis
 
 /**
  * Call Ollama LLM with a prompt
@@ -89,21 +89,28 @@ ${errorSummary}
 
 SAMPLE LARGE REQUESTS:
 ${logsToAnalyze.filter(l => l.request_size > 5000000).slice(0, 3).map(l =>
-`- ${l.timestamp}: ${(l.request_size / 1048576).toFixed(2)}MB from ${l.source_ip}, response: ${l.response_time_ms}ms, status: ${l.status_code}`
+  `- ${l.timestamp}: ${(l.request_size / 1048576).toFixed(2)}MB from ${l.source_ip}, response: ${l.response_time_ms}ms, status: ${l.status_code}`
 ).join('\n')}
+
+KEY OBSERVATIONS:
+- Endpoint affected: /api/search
+- Request sizes: ${logSummary.large_requests} requests exceed 5MB (normal is <10KB)
+- Response times: Average ${Math.round(logSummary.avg_response_time)}ms (normal is <200ms)
+- Error rate: ${((logSummary.error_count / logSummary.total_logs) * 100).toFixed(1)}% (normal is <1%)
+- Attack pattern: Multiple large JSON payloads causing timeouts
 
 NOTE: Analysis performed on ${logsToAnalyze.length} ${filterAnomalous ? 'anomalous' : 'total'} logs (from ${logs.length} total logs in time window).
 
 Based on this data, identify:
-1. The attack pattern and type
+1. The attack pattern and type (consider: JSON Payload Bomb, Large Request DoS, Memory Exhaustion)
 2. Attack characteristics (payload size, frequency, source)
 3. Impact on the service
 4. Confidence level (0-1)
 
 Respond in this exact format:
-ATTACK_TYPE: [type]
-CHARACTERISTICS: [brief description]
-IMPACT: [brief description]
+ATTACK_TYPE: [specific type like "JSON Payload Bomb" or "Large Request DoS"]
+CHARACTERISTICS: [payload sizes, request frequency, source IPs]
+IMPACT: [service degradation, timeouts, memory issues]
 CONFIDENCE: [0.0-1.0]`;
 
   const response = await callLLM(prompt, 0.1);
@@ -148,16 +155,24 @@ ATTACK ANALYSIS:
 METRIC ANOMALIES:
 ${metricsSummary}
 
+CONTEXT:
+- Service: search-api (Node.js/Express application)
+- Endpoint: /api/search (POST endpoint accepting JSON)
+- Vulnerability: Large JSON payloads (4-12MB) are being accepted without validation
+- Normal payload size: <10KB
+- Attack payload size: 4-12MB (400-1200x larger than normal)
+- Result: Service timeouts, memory exhaustion, pod restarts
+
 Based on this correlated data, determine:
-1. The root cause of the incident
+1. The root cause (focus on: missing input validation, lack of request size limits, no rate limiting)
 2. Contributing factors (security controls that were missing)
 3. Evidence supporting your conclusion
 4. Confidence score (0-1)
 
 Respond in this exact format:
-ROOT_CAUSE: [specific vulnerability or weakness]
-CONTRIBUTING_FACTORS: [factor1], [factor2], [factor3]
-EVIDENCE: [key evidence points]
+ROOT_CAUSE: [specific vulnerability - e.g., "Missing input validation on /api/search endpoint allowing unlimited JSON payload sizes"]
+CONTRIBUTING_FACTORS: [Missing request size validation], [No rate limiting per IP], [Lack of WAF protection]
+EVIDENCE: [Large payloads observed], [Service timeouts], [Memory exhaustion]
 CONFIDENCE: [0.0-1.0]`;
 
   const response = await callLLM(prompt, 0.1);

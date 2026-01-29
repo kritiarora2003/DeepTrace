@@ -18,7 +18,10 @@ function readLiveLogs() {
   return lines.map(line => {
     try {
       const log = JSON.parse(line);
-      // Convert to application log format
+      // Convert to application log format with rich context
+      const isError = log.status_code >= 500;
+      const isLargePayload = log.request_size_bytes > 1000000;
+      
       return {
         timestamp: log.timestamp,
         service: log.service,
@@ -28,8 +31,20 @@ function readLiveLogs() {
         response_time_ms: log.response_time_ms,
         status_code: log.status_code,
         source_ip: log.client_ip,
-        level: log.status_code >= 500 ? 'error' : 'info',
-        error: log.status_code >= 500 ? `HTTP ${log.status_code}` : null
+        level: isError ? 'error' : 'info',
+        error: isError ? (
+          isLargePayload
+            ? `Request timeout - large payload (${(log.request_size_bytes / 1048576).toFixed(2)}MB) processing exceeded limit`
+            : `HTTP ${log.status_code} - Service unavailable`
+        ) : null,
+        user_agent: 'Unknown',
+        query: 'search',
+        // Add attack indicators
+        attack_indicators: {
+          large_payload: isLargePayload,
+          slow_response: log.response_time_ms > 5000,
+          error_response: isError
+        }
       };
     } catch (e) {
       console.error('Failed to parse log line:', e.message);
@@ -87,6 +102,15 @@ function detectLiveAnomalies({ startTime, endTime, threshold = 1000000 }) {
  */
 function getLiveErrorPatterns({ startTime, endTime }) {
   const errors = queryLiveLogs({ startTime, endTime, level: 'error' });
+  
+  if (errors.length === 0) {
+    return [{
+      pattern: 'No errors in time window',
+      frequency: 0,
+      sample_ips: [],
+      endpoints: []
+    }];
+  }
   
   const patterns = {};
   errors.forEach(log => {

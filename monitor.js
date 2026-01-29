@@ -12,7 +12,7 @@ const MCP_URL = "http://localhost:3000";
 const CONFIG = {
   // Monitoring intervals
   CHECK_INTERVAL_MS: 60000, // Check every 1 minute
-  ANOMALY_WINDOW_MINUTES: 2, // Look at last 5 minutes of data
+  ANOMALY_WINDOW_MINUTES: 5, // Look at last 5 minutes of data
   
   // Anomaly thresholds
   THRESHOLDS: {
@@ -58,27 +58,41 @@ function detectMetricAnomalies() {
   if (CONFIG.USE_LIVE_DATA) {
     // Use sliding window for live data
     window = getAnomalyWindow();
+    
+    // Reload metrics data to get latest updates from attacker
+    delete require.cache[require.resolve('./services/data_sources')];
+    const freshDataSources = require('./services/data_sources');
+    
+    const anomalies = freshDataSources.metrics.detectAnomalies({
+      startTime: window.start,
+      endTime: window.end,
+      service: 'search-api'
+    });
+    
+    return {
+      anomalies,
+      window,
+      hasAnomalies: anomalies.length >= CONFIG.THRESHOLDS.MIN_ANOMALIES_TO_ALERT
+    };
   } else {
     // Use attack time window from pre-generated dataset
     window = {
       start: "2026-01-29T14:15:00.000Z",
       end: "2026-01-29T14:30:00.000Z"
     };
+    
+    const anomalies = dataSources.metrics.detectAnomalies({
+      startTime: window.start,
+      endTime: window.end,
+      service: 'search-api'
+    });
+    
+    return {
+      anomalies,
+      window,
+      hasAnomalies: anomalies.length >= CONFIG.THRESHOLDS.MIN_ANOMALIES_TO_ALERT
+    };
   }
-  
-  console.log(`\n🔍 Checking metrics from ${window.start} to ${window.end}`);
-  
-  const anomalies = dataSources.metrics.detectAnomalies({
-    startTime: window.start,
-    endTime: window.end,
-    service: 'search-api'
-  });
-  
-  return {
-    anomalies,
-    window,
-    hasAnomalies: anomalies.length >= CONFIG.THRESHOLDS.MIN_ANOMALIES_TO_ALERT
-  };
 }
 
 /**
@@ -250,10 +264,12 @@ async function triggerInvestigation(metricAnomalies, logAnomalies, window) {
     // Step 2: Filter and batch logs for AI analysis
     console.log('\n📍 Step 2: Filtering anomalous logs for AI analysis...');
     const anomalousLogs = filterAnomalousLogs(window);
-    console.log(`   • Total logs in window: ${dataSources.applicationLogs.query({
-      startTime: window.start,
-      endTime: window.end
-    }).length}`);
+    
+    const totalLogsInWindow = CONFIG.USE_LIVE_DATA
+      ? liveDataSource.queryLiveLogs({ startTime: window.start, endTime: window.end }).length
+      : dataSources.applicationLogs.query({ startTime: window.start, endTime: window.end }).length;
+    
+    console.log(`   • Total logs in window: ${totalLogsInWindow}`);
     console.log(`   • Filtered to anomalous logs: ${anomalousLogs.length}`);
     
     const batches = batchLogs(anomalousLogs);
@@ -268,8 +284,10 @@ async function triggerInvestigation(metricAnomalies, logAnomalies, window) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           time_range: window,
-          log_level: 'error', // Focus on errors
-          limit: CONFIG.AI_LIMITS.MAX_LOGS_PER_BATCH
+          log_level: 'all', // Analyze all logs to get full context
+          limit: CONFIG.AI_LIMITS.MAX_LOGS_PER_BATCH,
+          filter_anomalous: true, // But filter to only anomalous ones
+          batch_size: 100
         })
       });
       const logAnalysis = await logAnalysisResult.json();

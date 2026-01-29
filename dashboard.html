@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepTrace - Attack Visualization Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .incident-summary {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .incident-summary h2 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .incident-summary ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .incident-summary li {
+            padding: 5px 0;
+            color: #856404;
+        }
+
+        .incident-summary li::before {
+            content: "⚠️ ";
+            margin-right: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-change {
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .chart-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .timeline {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .timeline h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            border-left: 3px solid #667eea;
+            margin-left: 20px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #667eea;
+        }
+
+        .timeline-item.critical::before {
+            background: #dc3545;
+        }
+
+        .timeline-time {
+            font-weight: bold;
+            color: #667eea;
+            min-width: 80px;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .severity-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .severity-critical {
+            background: #dc3545;
+            color: white;
+        }
+
+        .severity-high {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .severity-warning {
+            background: #17a2b8;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: #5568d3;
+        }
+
+        @media (max-width: 768px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>
+                🔍 DeepTrace
+            </h1>
+            <div class="subtitle">Attack Visualization Dashboard - JSON Payload Bomb Incident</div>
+            
+            <div class="incident-summary">
+                <h2>🚨 Incident Summary</h2>
+                <ul>
+                    <li><strong>Attack Type:</strong> JSON Payload Bomb</li>
+                    <li><strong>Target:</strong> /api/search endpoint</li>
+                    <li><strong>Attack Window:</strong> 14:15 - 14:30 UTC (15 minutes)</li>
+                    <li><strong>Attacker IP:</strong> 203.0.113.45</li>
+                    <li><strong>Root Cause:</strong> Missing input validation and rate limiting</li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Response Time</div>
+                <div class="stat-value">8-12s</div>
+                <div class="stat-change">↑ 40x increase from 200ms</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">CPU Usage</div>
+                <div class="stat-value">95%</div>
+                <div class="stat-change">↑ from 25% baseline</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Memory Usage</div>
+                <div class="stat-value">90%</div>
+                <div class="stat-change">↑ from 40% baseline</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Error Rate</div>
+                <div class="stat-value">45%</div>
+                <div class="stat-change">↑ 225x increase from 0.2%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Attack Payloads</div>
+                <div class="stat-value">47</div>
+                <div class="stat-change">5-10 MB each</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Pod Restarts</div>
+                <div class="stat-value">15</div>
+                <div class="stat-change">OOM kills in 10 minutes</div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card full-width">
+                <h3>📊 Resource Usage During Attack</h3>
+                <img src="charts/1_resource_usage.png" alt="Resource Usage Chart">
+                <p style="margin-top: 10px; color: #666;">
+                    CPU and memory usage spiked dramatically during the attack window (14:15-14:30), 
+                    reaching critical levels that triggered OOM kills and pod restarts.
+                </p>
+            </div>
+
+            <div class="chart-card">
+                <h3>⏱️ Response Time Degradation</h3>
+                <img src="charts/2_response_time.png" alt="Response Time Chart">
+                <p style="margin-top: 10px; color: #666;">
+                    Response times increased 40x from baseline, with p99 reaching 12+ seconds.
+                </p>
+            </div>
+
+            <div class="chart-card">
+                <h3>❌ Error Rate Spike</h3>
+                <img src="charts/3_error_rate.png" alt="Error Rate Chart">
+                <p style="margin-top: 10px; color: #666;">
+                    Error rate jumped from 0.2% to 45%, a 225x increase affecting ~2,000 customers.
+                </p>
+            </div>
+
+            <div class="chart-card">
+                <h3>📦 Request Size Distribution</h3>
+                <img src="charts/4_request_size_distribution.png" alt="Request Size Distribution">
+                <p style="margin-top: 10px; color: #666;">
+                    47 attack payloads (>5MB) detected among normal traffic patterns.
+                </p>
+            </div>
+
+            <div class="chart-card">
+                <h3>🎯 Top Source IPs</h3>
+                <img src="charts/6_top_ips.png" alt="Top IPs Chart">
+                <p style="margin-top: 10px; color: #666;">
+                    Single attacker IP (203.0.113.45) responsible for all large payload requests.
+                </p>
+            </div>
+
+            <div class="chart-card full-width">
+                <h3>📅 Attack Timeline</h3>
+                <img src="charts/5_attack_timeline.png" alt="Attack Timeline">
+                <p style="margin-top: 10px; color: #666;">
+                    Chronological view showing correlation between large payloads, errors, and pod restarts.
+                </p>
+            </div>
+        </div>
+
+        <div class="timeline">
+            <h2>⏰ Incident Timeline</h2>
+            <div class="timeline-item">
+                <div class="timeline-time">14:15 UTC</div>
+                <div class="timeline-content">
+                    <strong>Attack Begins</strong>
+                    <span class="severity-badge severity-critical">CRITICAL</span>
+                    <p>Attacker starts sending large JSON payloads (5-10 MB) to /api/search endpoint</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">14:17 UTC</div>
+                <div class="timeline-content">
+                    <strong>Performance Degradation</strong>
+                    <span class="severity-badge severity-high">HIGH</span>
+                    <p>Search API response time degrades from 200ms to 8+ seconds</p>
+                </div>
+            </div>
+            <div class="timeline-item critical">
+                <div class="timeline-time">14:20 UTC</div>
+                <div class="timeline-content">
+                    <strong>CPU Exhaustion</strong>
+                    <span class="severity-badge severity-critical">CRITICAL</span>
+                    <p>CPU usage spikes to 95% across all search service pods</p>
+                </div>
+            </div>
+            <div class="timeline-item critical">
+                <div class="timeline-time">14:22 UTC</div>
+                <div class="timeline-content">
+                    <strong>Memory Exhaustion</strong>
+                    <span class="severity-badge severity-critical">CRITICAL</span>
+                    <p>Memory usage reaches 90%, pods start experiencing OOM kills</p>
+                </div>
+            </div>
+            <div class="timeline-item critical">
+                <div class="timeline-time">14:25 UTC</div>
+                <div class="timeline-content">
+                    <strong>Service Instability</strong>
+                    <span class="severity-badge severity-critical">CRITICAL</span>
+                    <p>Kubernetes begins automatic pod restarts, service becomes unstable</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">14:28 UTC</div>
+                <div class="timeline-content">
+                    <strong>Alerts Triggered</strong>
+                    <span class="severity-badge severity-high">HIGH</span>
+                    <p>Monitoring alerts trigger - service severely degraded</p>
+                </div>
+            </div>
+            <div class="timeline-item critical">
+                <div class="timeline-time">14:30 UTC</div>
+                <div class="timeline-content">
+                    <strong>Peak Impact</strong>
+                    <span class="severity-badge severity-critical">CRITICAL</span>
+                    <p>Error rate reaches 45%, legitimate searches timing out. ~2,000 customers affected</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <button class="refresh-btn" onclick="location.reload()">🔄 Refresh Dashboard</button>
+        </div>
+
+        <footer>
+            <p>DeepTrace - AI-Powered Security Incident Investigation</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Generated from real attack simulation data | 
+                <a href="README.md" style="color: white; text-decoration: underline;">Documentation</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

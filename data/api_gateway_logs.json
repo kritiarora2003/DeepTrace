@@ -1,0 +1,2415 @@
+[
+  {
+    "request_id": "req-xfakn6j0u",
+    "timestamp": "2026-01-29T14:00:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 882,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2005"
+    },
+    "response_code": 200,
+    "response_time_ms": 208,
+    "source_ip": "192.168.1.53",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-4wleoq0p3",
+    "timestamp": "2026-01-29T14:00:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1550,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2466"
+    },
+    "response_code": 200,
+    "response_time_ms": 289,
+    "source_ip": "192.168.1.19",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-9l5d0o7pa",
+    "timestamp": "2026-01-29T14:00:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2386,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1503"
+    },
+    "response_code": 200,
+    "response_time_ms": 285,
+    "source_ip": "192.168.1.21",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-e38ml7oqx",
+    "timestamp": "2026-01-29T14:01:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1630,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1767"
+    },
+    "response_code": 200,
+    "response_time_ms": 177,
+    "source_ip": "192.168.1.69",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-83h1l3rwm",
+    "timestamp": "2026-01-29T14:01:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1787,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1013"
+    },
+    "response_code": 200,
+    "response_time_ms": 169,
+    "source_ip": "192.168.1.4",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-jkxsydc2g",
+    "timestamp": "2026-01-29T14:01:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1158,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1617"
+    },
+    "response_code": 200,
+    "response_time_ms": 277,
+    "source_ip": "192.168.1.27",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-vt5x0jr4v",
+    "timestamp": "2026-01-29T14:02:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1931,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1366"
+    },
+    "response_code": 200,
+    "response_time_ms": 152,
+    "source_ip": "192.168.1.35",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-qn5oewtx5",
+    "timestamp": "2026-01-29T14:02:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1168,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1293"
+    },
+    "response_code": 200,
+    "response_time_ms": 258,
+    "source_ip": "192.168.1.2",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-j9dfri5ws",
+    "timestamp": "2026-01-29T14:02:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1786,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1469"
+    },
+    "response_code": 200,
+    "response_time_ms": 203,
+    "source_ip": "192.168.1.29",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-5zfrr7av6",
+    "timestamp": "2026-01-29T14:03:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1260,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1364"
+    },
+    "response_code": 200,
+    "response_time_ms": 218,
+    "source_ip": "192.168.1.40",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-m7k51qzwg",
+    "timestamp": "2026-01-29T14:03:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1577,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "548"
+    },
+    "response_code": 200,
+    "response_time_ms": 240,
+    "source_ip": "192.168.1.31",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-fn53b15sb",
+    "timestamp": "2026-01-29T14:03:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2286,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1993"
+    },
+    "response_code": 200,
+    "response_time_ms": 252,
+    "source_ip": "192.168.1.99",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-qp7ntbxfk",
+    "timestamp": "2026-01-29T14:04:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 606,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1802"
+    },
+    "response_code": 200,
+    "response_time_ms": 299,
+    "source_ip": "192.168.1.69",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-7ahykvfj0",
+    "timestamp": "2026-01-29T14:04:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 638,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2208"
+    },
+    "response_code": 200,
+    "response_time_ms": 152,
+    "source_ip": "192.168.1.7",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-6r87rh4uk",
+    "timestamp": "2026-01-29T14:04:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1418,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "829"
+    },
+    "response_code": 200,
+    "response_time_ms": 264,
+    "source_ip": "192.168.1.19",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-hluam6q6y",
+    "timestamp": "2026-01-29T14:05:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2422,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1706"
+    },
+    "response_code": 200,
+    "response_time_ms": 263,
+    "source_ip": "192.168.1.24",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-sr3hveurd",
+    "timestamp": "2026-01-29T14:05:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 879,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1564"
+    },
+    "response_code": 200,
+    "response_time_ms": 252,
+    "source_ip": "192.168.1.45",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-34v3xor6x",
+    "timestamp": "2026-01-29T14:05:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2165,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "726"
+    },
+    "response_code": 200,
+    "response_time_ms": 236,
+    "source_ip": "192.168.1.94",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-4pdu9kcow",
+    "timestamp": "2026-01-29T14:06:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 931,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "988"
+    },
+    "response_code": 200,
+    "response_time_ms": 174,
+    "source_ip": "192.168.1.84",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-dft6xezy8",
+    "timestamp": "2026-01-29T14:06:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 574,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1288"
+    },
+    "response_code": 200,
+    "response_time_ms": 183,
+    "source_ip": "192.168.1.25",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-vxwgmfwec",
+    "timestamp": "2026-01-29T14:06:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1939,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2396"
+    },
+    "response_code": 200,
+    "response_time_ms": 190,
+    "source_ip": "192.168.1.73",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-2407w0qd6",
+    "timestamp": "2026-01-29T14:07:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1369,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1275"
+    },
+    "response_code": 200,
+    "response_time_ms": 214,
+    "source_ip": "192.168.1.8",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-8ff26276t",
+    "timestamp": "2026-01-29T14:07:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1834,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1199"
+    },
+    "response_code": 200,
+    "response_time_ms": 154,
+    "source_ip": "192.168.1.45",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-sgd0a0p8s",
+    "timestamp": "2026-01-29T14:07:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1156,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "611"
+    },
+    "response_code": 200,
+    "response_time_ms": 295,
+    "source_ip": "192.168.1.16",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-snzw465l0",
+    "timestamp": "2026-01-29T14:08:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2075,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2399"
+    },
+    "response_code": 200,
+    "response_time_ms": 277,
+    "source_ip": "192.168.1.17",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-0x79bme9y",
+    "timestamp": "2026-01-29T14:08:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 947,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "596"
+    },
+    "response_code": 200,
+    "response_time_ms": 290,
+    "source_ip": "192.168.1.53",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-9mwx4o6c2",
+    "timestamp": "2026-01-29T14:08:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 735,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1889"
+    },
+    "response_code": 200,
+    "response_time_ms": 156,
+    "source_ip": "192.168.1.18",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-nitjq0531",
+    "timestamp": "2026-01-29T14:09:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1877,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1893"
+    },
+    "response_code": 200,
+    "response_time_ms": 167,
+    "source_ip": "192.168.1.50",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-jb7y08790",
+    "timestamp": "2026-01-29T14:09:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1183,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1410"
+    },
+    "response_code": 200,
+    "response_time_ms": 246,
+    "source_ip": "192.168.1.51",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-n9lbu2pb6",
+    "timestamp": "2026-01-29T14:09:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1101,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1714"
+    },
+    "response_code": 200,
+    "response_time_ms": 233,
+    "source_ip": "192.168.1.35",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-g9ebtlwdr",
+    "timestamp": "2026-01-29T14:10:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2108,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1770"
+    },
+    "response_code": 200,
+    "response_time_ms": 294,
+    "source_ip": "192.168.1.59",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-3ywy01wmp",
+    "timestamp": "2026-01-29T14:10:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2020,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "911"
+    },
+    "response_code": 200,
+    "response_time_ms": 176,
+    "source_ip": "192.168.1.36",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-vc1mtsba9",
+    "timestamp": "2026-01-29T14:10:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2334,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1779"
+    },
+    "response_code": 200,
+    "response_time_ms": 290,
+    "source_ip": "192.168.1.38",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-kqhc6b8dl",
+    "timestamp": "2026-01-29T14:11:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1039,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1461"
+    },
+    "response_code": 200,
+    "response_time_ms": 227,
+    "source_ip": "192.168.1.93",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-u742lvx7q",
+    "timestamp": "2026-01-29T14:11:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 560,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2370"
+    },
+    "response_code": 200,
+    "response_time_ms": 289,
+    "source_ip": "192.168.1.39",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-0vx7rrcko",
+    "timestamp": "2026-01-29T14:11:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1670,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2237"
+    },
+    "response_code": 200,
+    "response_time_ms": 245,
+    "source_ip": "192.168.1.99",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-qfykvxgbf",
+    "timestamp": "2026-01-29T14:12:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2434,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1653"
+    },
+    "response_code": 200,
+    "response_time_ms": 195,
+    "source_ip": "192.168.1.39",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-0jbb9n8u5",
+    "timestamp": "2026-01-29T14:12:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 625,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2092"
+    },
+    "response_code": 200,
+    "response_time_ms": 246,
+    "source_ip": "192.168.1.29",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-q39pmq3s6",
+    "timestamp": "2026-01-29T14:12:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1140,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "658"
+    },
+    "response_code": 200,
+    "response_time_ms": 244,
+    "source_ip": "192.168.1.90",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-3uvivekl7",
+    "timestamp": "2026-01-29T14:13:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1738,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1321"
+    },
+    "response_code": 200,
+    "response_time_ms": 156,
+    "source_ip": "192.168.1.47",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-g21xd9ssb",
+    "timestamp": "2026-01-29T14:13:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 960,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1705"
+    },
+    "response_code": 200,
+    "response_time_ms": 229,
+    "source_ip": "192.168.1.6",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-1pfaht6cu",
+    "timestamp": "2026-01-29T14:13:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 856,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1571"
+    },
+    "response_code": 200,
+    "response_time_ms": 180,
+    "source_ip": "192.168.1.22",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-aud99t67u",
+    "timestamp": "2026-01-29T14:14:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1577,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1648"
+    },
+    "response_code": 200,
+    "response_time_ms": 213,
+    "source_ip": "192.168.1.69",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-zs329d7xe",
+    "timestamp": "2026-01-29T14:14:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2291,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "669"
+    },
+    "response_code": 200,
+    "response_time_ms": 298,
+    "source_ip": "192.168.1.67",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-cs8kjxfoy",
+    "timestamp": "2026-01-29T14:14:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1835,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2113"
+    },
+    "response_code": 200,
+    "response_time_ms": 231,
+    "source_ip": "192.168.1.80",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-32v8xbi8d",
+    "timestamp": "2026-01-29T14:15:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1259,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1135"
+    },
+    "response_code": 200,
+    "response_time_ms": 208,
+    "source_ip": "192.168.1.76",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-hlp1yruyv",
+    "timestamp": "2026-01-29T14:15:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6920064,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6920064"
+    },
+    "response_code": 500,
+    "response_time_ms": 8772,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-nehx3tyz2",
+    "timestamp": "2026-01-29T14:15:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 916,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1122"
+    },
+    "response_code": 200,
+    "response_time_ms": 164,
+    "source_ip": "192.168.1.78",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-zck8fxoy8",
+    "timestamp": "2026-01-29T14:15:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8934220,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8934220"
+    },
+    "response_code": 504,
+    "response_time_ms": 6347,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-cxqihg2di",
+    "timestamp": "2026-01-29T14:15:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 693,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1459"
+    },
+    "response_code": 200,
+    "response_time_ms": 261,
+    "source_ip": "192.168.1.13",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-v7q8fhe5n",
+    "timestamp": "2026-01-29T14:15:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9756813,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9756813"
+    },
+    "response_code": 503,
+    "response_time_ms": 8948,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-vdevleiif",
+    "timestamp": "2026-01-29T14:16:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1270,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "642"
+    },
+    "response_code": 200,
+    "response_time_ms": 253,
+    "source_ip": "192.168.1.27",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-z27us0nel",
+    "timestamp": "2026-01-29T14:16:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 7802763,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "7802763"
+    },
+    "response_code": 500,
+    "response_time_ms": 9320,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-8m8f8g549",
+    "timestamp": "2026-01-29T14:16:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1018,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2275"
+    },
+    "response_code": 200,
+    "response_time_ms": 214,
+    "source_ip": "192.168.1.70",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-yk50rvr6a",
+    "timestamp": "2026-01-29T14:16:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8873085,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8873085"
+    },
+    "response_code": 504,
+    "response_time_ms": 6770,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-21u7ao9wn",
+    "timestamp": "2026-01-29T14:16:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1149,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2431"
+    },
+    "response_code": 200,
+    "response_time_ms": 226,
+    "source_ip": "192.168.1.20",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-awo3033lz",
+    "timestamp": "2026-01-29T14:16:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6842582,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6842582"
+    },
+    "response_code": 503,
+    "response_time_ms": 7323,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-f21wrb9hk",
+    "timestamp": "2026-01-29T14:17:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2048,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "978"
+    },
+    "response_code": 200,
+    "response_time_ms": 160,
+    "source_ip": "192.168.1.17",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-nflugdzmv",
+    "timestamp": "2026-01-29T14:17:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6679207,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6679207"
+    },
+    "response_code": 500,
+    "response_time_ms": 9033,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-8lyeh41r1",
+    "timestamp": "2026-01-29T14:17:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2252,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1454"
+    },
+    "response_code": 200,
+    "response_time_ms": 150,
+    "source_ip": "192.168.1.66",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-4plrsoz4v",
+    "timestamp": "2026-01-29T14:17:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 7582995,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "7582995"
+    },
+    "response_code": 504,
+    "response_time_ms": 9973,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-b1mdsn0r8",
+    "timestamp": "2026-01-29T14:17:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2389,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1621"
+    },
+    "response_code": 200,
+    "response_time_ms": 209,
+    "source_ip": "192.168.1.45",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-uo4b7u67n",
+    "timestamp": "2026-01-29T14:17:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6810046,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6810046"
+    },
+    "response_code": 503,
+    "response_time_ms": 8700,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-hoqrtvqi6",
+    "timestamp": "2026-01-29T14:18:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2157,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1174"
+    },
+    "response_code": 200,
+    "response_time_ms": 214,
+    "source_ip": "192.168.1.26",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-t0ois77aq",
+    "timestamp": "2026-01-29T14:18:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9176665,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9176665"
+    },
+    "response_code": 500,
+    "response_time_ms": 9016,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-qawatos3q",
+    "timestamp": "2026-01-29T14:18:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1192,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2001"
+    },
+    "response_code": 200,
+    "response_time_ms": 229,
+    "source_ip": "192.168.1.20",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-nqcud7uh1",
+    "timestamp": "2026-01-29T14:18:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8987418,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8987418"
+    },
+    "response_code": 504,
+    "response_time_ms": 7933,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-8v1r2e6ul",
+    "timestamp": "2026-01-29T14:18:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1558,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1838"
+    },
+    "response_code": 200,
+    "response_time_ms": 266,
+    "source_ip": "192.168.1.67",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-3s23tquye",
+    "timestamp": "2026-01-29T14:18:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9280120,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9280120"
+    },
+    "response_code": 503,
+    "response_time_ms": 9876,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-zck923yuq",
+    "timestamp": "2026-01-29T14:19:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 730,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "619"
+    },
+    "response_code": 200,
+    "response_time_ms": 192,
+    "source_ip": "192.168.1.82",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-0dzr5kceb",
+    "timestamp": "2026-01-29T14:19:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 7395444,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "7395444"
+    },
+    "response_code": 500,
+    "response_time_ms": 8236,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-edtkavpew",
+    "timestamp": "2026-01-29T14:19:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2068,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2499"
+    },
+    "response_code": 200,
+    "response_time_ms": 222,
+    "source_ip": "192.168.1.68",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-z11tbcfpx",
+    "timestamp": "2026-01-29T14:19:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 7276362,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "7276362"
+    },
+    "response_code": 504,
+    "response_time_ms": 8891,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-06nihk3gt",
+    "timestamp": "2026-01-29T14:19:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1363,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "620"
+    },
+    "response_code": 200,
+    "response_time_ms": 225,
+    "source_ip": "192.168.1.76",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-rxqgy5509",
+    "timestamp": "2026-01-29T14:19:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6590629,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6590629"
+    },
+    "response_code": 503,
+    "response_time_ms": 9502,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-tumnxlybz",
+    "timestamp": "2026-01-29T14:20:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2440,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1556"
+    },
+    "response_code": 200,
+    "response_time_ms": 239,
+    "source_ip": "192.168.1.62",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-c4xjzi3x9",
+    "timestamp": "2026-01-29T14:20:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6545459,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6545459"
+    },
+    "response_code": 500,
+    "response_time_ms": 7720,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-bmzsbmwik",
+    "timestamp": "2026-01-29T14:20:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2140,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "903"
+    },
+    "response_code": 200,
+    "response_time_ms": 167,
+    "source_ip": "192.168.1.83",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-o7r4jl1ay",
+    "timestamp": "2026-01-29T14:20:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8142648,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8142648"
+    },
+    "response_code": 504,
+    "response_time_ms": 9118,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-emem72vr7",
+    "timestamp": "2026-01-29T14:20:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1095,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "716"
+    },
+    "response_code": 200,
+    "response_time_ms": 150,
+    "source_ip": "192.168.1.74",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-n9zz8ugii",
+    "timestamp": "2026-01-29T14:20:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9791990,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9791990"
+    },
+    "response_code": 503,
+    "response_time_ms": 8109,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-bm8f4jymu",
+    "timestamp": "2026-01-29T14:21:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2305,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "500"
+    },
+    "response_code": 200,
+    "response_time_ms": 217,
+    "source_ip": "192.168.1.48",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-pzj9nyzm3",
+    "timestamp": "2026-01-29T14:21:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9539350,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9539350"
+    },
+    "response_code": 500,
+    "response_time_ms": 7663,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-5jicv722s",
+    "timestamp": "2026-01-29T14:21:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 616,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1380"
+    },
+    "response_code": 200,
+    "response_time_ms": 169,
+    "source_ip": "192.168.1.19",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-f2qu6r61j",
+    "timestamp": "2026-01-29T14:21:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6051309,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6051309"
+    },
+    "response_code": 504,
+    "response_time_ms": 7360,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-9okm6dv7u",
+    "timestamp": "2026-01-29T14:21:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2095,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "509"
+    },
+    "response_code": 200,
+    "response_time_ms": 161,
+    "source_ip": "192.168.1.19",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-k48yl6xcx",
+    "timestamp": "2026-01-29T14:21:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 7241299,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "7241299"
+    },
+    "response_code": 503,
+    "response_time_ms": 9770,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-h1zfby6br",
+    "timestamp": "2026-01-29T14:22:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1103,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2002"
+    },
+    "response_code": 200,
+    "response_time_ms": 153,
+    "source_ip": "192.168.1.93",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-iwddruw4l",
+    "timestamp": "2026-01-29T14:22:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 5970848,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "5970848"
+    },
+    "response_code": 500,
+    "response_time_ms": 9911,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-4u7hsxsos",
+    "timestamp": "2026-01-29T14:22:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 839,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1675"
+    },
+    "response_code": 200,
+    "response_time_ms": 175,
+    "source_ip": "192.168.1.29",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-6qdijtut4",
+    "timestamp": "2026-01-29T14:22:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 7580244,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "7580244"
+    },
+    "response_code": 504,
+    "response_time_ms": 7841,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-vls3tt3xf",
+    "timestamp": "2026-01-29T14:22:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2343,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "718"
+    },
+    "response_code": 200,
+    "response_time_ms": 154,
+    "source_ip": "192.168.1.22",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-bfx473469",
+    "timestamp": "2026-01-29T14:22:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6488409,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6488409"
+    },
+    "response_code": 503,
+    "response_time_ms": 8002,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-oyuos2iff",
+    "timestamp": "2026-01-29T14:23:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 780,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "954"
+    },
+    "response_code": 200,
+    "response_time_ms": 168,
+    "source_ip": "192.168.1.49",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-cp72n3jm1",
+    "timestamp": "2026-01-29T14:23:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6941928,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6941928"
+    },
+    "response_code": 500,
+    "response_time_ms": 7823,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-gbbtj5nnr",
+    "timestamp": "2026-01-29T14:23:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 2444,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1806"
+    },
+    "response_code": 200,
+    "response_time_ms": 247,
+    "source_ip": "192.168.1.9",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-yj5ooof14",
+    "timestamp": "2026-01-29T14:23:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 5638275,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "5638275"
+    },
+    "response_code": 504,
+    "response_time_ms": 9851,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-vv2a5rebt",
+    "timestamp": "2026-01-29T14:23:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1051,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1428"
+    },
+    "response_code": 200,
+    "response_time_ms": 289,
+    "source_ip": "192.168.1.74",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-aar5l3tac",
+    "timestamp": "2026-01-29T14:23:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 7640749,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "7640749"
+    },
+    "response_code": 503,
+    "response_time_ms": 7706,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-5xnllqauc",
+    "timestamp": "2026-01-29T14:24:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1244,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1566"
+    },
+    "response_code": 200,
+    "response_time_ms": 294,
+    "source_ip": "192.168.1.94",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-z1ck3xbyp",
+    "timestamp": "2026-01-29T14:24:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6723648,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6723648"
+    },
+    "response_code": 500,
+    "response_time_ms": 7858,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-7omdkz4s0",
+    "timestamp": "2026-01-29T14:24:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 934,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "903"
+    },
+    "response_code": 200,
+    "response_time_ms": 296,
+    "source_ip": "192.168.1.52",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-a6ii1o662",
+    "timestamp": "2026-01-29T14:24:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8707208,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8707208"
+    },
+    "response_code": 504,
+    "response_time_ms": 8000,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-0rqqg6ti1",
+    "timestamp": "2026-01-29T14:24:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1155,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1348"
+    },
+    "response_code": 200,
+    "response_time_ms": 262,
+    "source_ip": "192.168.1.58",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-8qj6fl283",
+    "timestamp": "2026-01-29T14:24:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9479178,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9479178"
+    },
+    "response_code": 503,
+    "response_time_ms": 9518,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-ynex5gxpd",
+    "timestamp": "2026-01-29T14:25:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1545,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1623"
+    },
+    "response_code": 200,
+    "response_time_ms": 240,
+    "source_ip": "192.168.1.62",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-0v3ommbgh",
+    "timestamp": "2026-01-29T14:25:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6025389,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6025389"
+    },
+    "response_code": 500,
+    "response_time_ms": 7519,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-o59myw6yc",
+    "timestamp": "2026-01-29T14:25:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1043,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1619"
+    },
+    "response_code": 200,
+    "response_time_ms": 282,
+    "source_ip": "192.168.1.10",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-avcdd0vqv",
+    "timestamp": "2026-01-29T14:25:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8481348,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8481348"
+    },
+    "response_code": 504,
+    "response_time_ms": 7655,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-7cm3qtlqe",
+    "timestamp": "2026-01-29T14:25:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 743,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1093"
+    },
+    "response_code": 200,
+    "response_time_ms": 206,
+    "source_ip": "192.168.1.78",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-nw2jwbvwh",
+    "timestamp": "2026-01-29T14:25:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6447916,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6447916"
+    },
+    "response_code": 503,
+    "response_time_ms": 9605,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-6zfoukrp7",
+    "timestamp": "2026-01-29T14:26:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1321,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "1908"
+    },
+    "response_code": 200,
+    "response_time_ms": 189,
+    "source_ip": "192.168.1.59",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-f5aur4scc",
+    "timestamp": "2026-01-29T14:26:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9217395,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9217395"
+    },
+    "response_code": 500,
+    "response_time_ms": 7897,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-8u8pkd8ak",
+    "timestamp": "2026-01-29T14:26:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 1177,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "2148"
+    },
+    "response_code": 200,
+    "response_time_ms": 157,
+    "source_ip": "192.168.1.26",
+    "geo_location": {
+      "country": "US",
+      "city": "San Francisco"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-qs8vgl6fd",
+    "timestamp": "2026-01-29T14:26:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6243817,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6243817"
+    },
+    "response_code": 504,
+    "response_time_ms": 6753,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-gzxx3cq8o",
+    "timestamp": "2026-01-29T14:26:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8574680,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8574680"
+    },
+    "response_code": 503,
+    "response_time_ms": 8586,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-id5072uwk",
+    "timestamp": "2026-01-29T14:27:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9129942,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9129942"
+    },
+    "response_code": 500,
+    "response_time_ms": 8339,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-nsy33n7h0",
+    "timestamp": "2026-01-29T14:27:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6865284,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6865284"
+    },
+    "response_code": 504,
+    "response_time_ms": 8676,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-f6winpanh",
+    "timestamp": "2026-01-29T14:27:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9623958,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9623958"
+    },
+    "response_code": 503,
+    "response_time_ms": 9609,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-tnwvlsrrt",
+    "timestamp": "2026-01-29T14:28:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6208390,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6208390"
+    },
+    "response_code": 500,
+    "response_time_ms": 6141,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-8m0hghxyt",
+    "timestamp": "2026-01-29T14:28:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8587517,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8587517"
+    },
+    "response_code": 504,
+    "response_time_ms": 8189,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-vsxp2lczf",
+    "timestamp": "2026-01-29T14:28:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 5019517,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "5019517"
+    },
+    "response_code": 503,
+    "response_time_ms": 8184,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-wst10rcue",
+    "timestamp": "2026-01-29T14:29:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 6899225,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "6899225"
+    },
+    "response_code": 500,
+    "response_time_ms": 9839,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-z8jum8mhu",
+    "timestamp": "2026-01-29T14:29:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 8677594,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "8677594"
+    },
+    "response_code": 504,
+    "response_time_ms": 6057,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-c5cr72t0o",
+    "timestamp": "2026-01-29T14:29:40.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9092297,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9092297"
+    },
+    "response_code": 503,
+    "response_time_ms": 9542,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-kfm95p1es",
+    "timestamp": "2026-01-29T14:30:00.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 5471477,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "5471477"
+    },
+    "response_code": 500,
+    "response_time_ms": 7395,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  },
+  {
+    "request_id": "req-amyoz5tkq",
+    "timestamp": "2026-01-29T14:30:20.000Z",
+    "method": "POST",
+    "endpoint": "/api/search",
+    "request_size": 9427024,
+    "request_headers": {
+      "content-type": "application/json",
+      "content-length": "9427024"
+    },
+    "response_code": 504,
+    "response_time_ms": 9324,
+    "source_ip": "203.0.113.45",
+    "geo_location": {
+      "country": "Unknown",
+      "city": "Unknown"
+    },
+    "rate_limit_hit": false
+  }
+]

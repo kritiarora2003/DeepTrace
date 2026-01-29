@@ -118,12 +118,91 @@ async function testTools() {
     results.tests.push({ name: 'suggest_remediation', status: 'FAILED', error: error.message });
   }
 
+  // Test 5: fetch_incident_timeline with invalid time range
+  console.log('\n📍 Test 5: fetch_incident_timeline (invalid time range)');
+  try {
+    await tools.fetch_incident_timeline.execute({
+      start_time: "2026-01-29T14:35:00.000Z",
+      end_time: "2026-01-29T14:00:00.000Z",
+      sources: ["all"]
+    });
+    console.log('❌ FAILED: Should have thrown error for invalid time range');
+    results.failed++;
+    results.tests.push({ name: 'fetch_incident_timeline_invalid_time', status: 'FAILED', error: 'No error thrown' });
+  } catch (error) {
+    console.log('✅ PASSED (caught error):', error.message);
+    console.log(`   • Error type: ${error.name}`);
+    console.log(`   • Message: ${error.message}`);
+    results.passed++;
+    results.tests.push({ name: 'fetch_incident_timeline_invalid_time', status: 'PASSED' });
+  }
+
+  // Test 6: suggest_remediation with missing required fields
+  console.log('\n📍 Test 6: suggest_remediation (missing required fields)');
+  try {
+    await tools.suggest_remediation.execute({
+      // Missing root_cause and attack_type
+      severity: "critical",
+      include_commands: true
+    });
+    console.log('❌ FAILED: Should have thrown error for missing fields');
+    results.failed++;
+    results.tests.push({ name: 'suggest_remediation_missing_fields', status: 'FAILED', error: 'No error thrown' });
+  } catch (error) {
+    console.log('✅ PASSED (caught error):', error.message);
+    console.log(`   • Error type: ${error.name}`);
+    console.log(`   • Message: ${error.message}`);
+    results.passed++;
+    results.tests.push({ name: 'suggest_remediation_missing_fields', status: 'PASSED' });
+  }
+
+  // Test 7: fetch_incident_timeline with missing required fields
+  console.log('\n📍 Test 7: fetch_incident_timeline (missing required fields)');
+  try {
+    await tools.fetch_incident_timeline.execute({
+      // Missing start_time and sources
+      end_time: "2026-01-29T14:35:00.000Z"
+    });
+    console.log('❌ FAILED: Should have thrown error for missing fields');
+    results.failed++;
+    results.tests.push({ name: 'fetch_incident_timeline_missing_fields', status: 'FAILED', error: 'No error thrown' });
+  } catch (error) {
+    console.log('✅ PASSED (caught error):', error.message);
+    console.log(`   • Error type: ${error.name}`);
+    console.log(`   • Message: ${error.message}`);
+    results.passed++;
+    results.tests.push({ name: 'fetch_incident_timeline_missing_fields', status: 'PASSED' });
+  }
+
+  // Test 8: analyze_logs with invalid log_level
+  console.log('\n📍 Test 8: analyze_logs (invalid log_level)');
+  try {
+    await tools.analyze_logs.execute({
+      time_range: {
+        start: "2026-01-29T14:00:00.000Z",
+        end: "2026-01-29T14:35:00.000Z"
+      },
+      log_level: "INVALID_LEVEL",
+      limit: 100
+    });
+    console.log('❌ FAILED: Should have thrown error for invalid log_level');
+    results.failed++;
+    results.tests.push({ name: 'analyze_logs_invalid_log_level', status: 'FAILED', error: 'No error thrown' });
+  } catch (error) {
+    console.log('✅ PASSED (caught error):', error.message);
+    console.log(`   • Error type: ${error.name}`);
+    console.log(`   • Message: ${error.message}`);
+    results.passed++;
+    results.tests.push({ name: 'analyze_logs_invalid_log_level', status: 'PASSED' });
+  }
+
+
   // Summary
   console.log('\n' + '='.repeat(80));
   console.log('📊 TEST SUMMARY');
   console.log('='.repeat(80));
-  console.log(`✅ Passed: ${results.passed}/4`);
-  console.log(`❌ Failed: ${results.failed}/4`);
+  console.log(`✅ Passed: ${results.passed}/8`);
+  console.log(`❌ Failed: ${results.failed}/8`);
   
   if (results.failed === 0) {
     console.log('\n🎉 All tests passed! DeepTrace MCP server is ready.');
